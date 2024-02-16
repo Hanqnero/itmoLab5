@@ -4,18 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="04ea442e-43f7-4163-8cc8-104a0ed3d7cb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Lab4.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/collectionMembers/Coordinates.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/collectionMembers/MusicBand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/collectionMembers/MusicGenre.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/collectionMembers/Studio.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/collectionMembers/task.md" afterDir="false" />
+    <list default="true" id="04ea442e-43f7-4163-8cc8-104a0ed3d7cb" name="Changes" comment="Initial commit. Added task.md and task_screenshot.png. Copied java type MusicBand from task text.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,6 +53,11 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Documents\uni\Java\Lab4\src\ru\hanqnero\uni\lab5\" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -71,8 +66,17 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1708093232221</updated>
-      <workItem from="1708093233245" duration="1758000" />
+      <workItem from="1708093233245" duration="2801000" />
     </task>
+    <task id="LOCAL-00001" summary="Initial commit. Added task.md and task_screenshot.png. Copied java type MusicBand from task text.">
+      <option name="closed" value="true" />
+      <created>1708095188462</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1708095188462</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -88,5 +92,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Initial commit. Added task.md and task_screenshot.png. Copied java type MusicBand from task text." />
+    <option name="LAST_COMMIT_MESSAGE" value="Initial commit. Added task.md and task_screenshot.png. Copied java type MusicBand from task text." />
   </component>
 </project>
