@@ -5,8 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="04ea442e-43f7-4163-8cc8-104a0ed3d7cb" name="Changes" comment="Initial commit. Added task.md and task_screenshot.png. Copied java type MusicBand from task text.">
-      <change beforePath="$PROJECT_DIR$/Lab4.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Lab5.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/task.md" beforeDir="false" afterPath="$PROJECT_DIR$/task.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/Token.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/Tokenizer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/collectionMembers/Coordinates.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/collectionMembers/Coordinates.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/collectionMembers/MusicBand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/collectionMembers/MusicBand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/collectionMembers/Studio.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/collectionMembers/Studio.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,46 +47,43 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "onboarding.tips.debug.path": "D:/Documents/uni/Java/Lab4/src/Main.java",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "editing.templates",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;D:/Documents/uni/Java/Lab4/src/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Documents\uni\Java\Lab4" />
       <recent name="D:\Documents\uni\Java\Lab4\src\ru\hanqnero\uni\lab5\" />
     </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="ru.hanqnero.uni.lab5" />
+    </key>
   </component>
-  <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="Lab5" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="Lab5" />
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-17.0.10-corretto-17.0.10-4caba194b151-25a4bffe" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -93,6 +95,11 @@
       <updated>1708093232221</updated>
       <workItem from="1708093233245" duration="2801000" />
       <workItem from="1708107155030" duration="321000" />
+      <workItem from="1708771978883" duration="2028000" />
+      <workItem from="1708774716478" duration="137000" />
+      <workItem from="1708774877525" duration="356000" />
+      <workItem from="1708775333815" duration="5207000" />
+      <workItem from="1709196242388" duration="37000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit. Added task.md and task_screenshot.png. Copied java type MusicBand from task text.">
       <option name="closed" value="true" />
@@ -134,5 +141,9 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial commit. Added task.md and task_screenshot.png. Copied java type MusicBand from task text." />
     <option name="LAST_COMMIT_MESSAGE" value="Initial commit. Added task.md and task_screenshot.png. Copied java type MusicBand from task text." />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
