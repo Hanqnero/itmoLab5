@@ -4,18 +4,29 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="04ea442e-43f7-4163-8cc8-104a0ed3d7cb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Lab4.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/collectionMembers/Coordinates.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/collectionMembers/MusicBand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/collectionMembers/MusicGenre.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/collectionMembers/Studio.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/collectionMembers/task.md" afterDir="false" />
+    <list default="true" id="04ea442e-43f7-4163-8cc8-104a0ed3d7cb" name="Changes" comment="create RemoveGreater command">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/client/ClientApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/client/ConsoleManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/client/ScriptReader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/client/invokers/AbstractCommandInvoker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/collection/Coordinates.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/collection/MusicBandBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/collection/MusicGenre.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/collection/Studio.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/dto/CommandInfo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/dto/commands/Command.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/dto/executors/CommandExecutor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/dto/factories/CommandFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/dto/results/ExecutionResult.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/server/CollectionManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/server/ServerApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/server/receiver/AbstractCommandReceiver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/collectionMembers/Coordinates.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/collectionMembers/MusicBand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/collection/MusicBand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/collectionMembers/MusicGenre.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/collectionMembers/Studio.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,20 +37,35 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Enum" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Hanqnero&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Hanqnero/itmoLab5.git&quot;,
+    &quot;accountId&quot;: &quot;cc443c10-2bdc-4905-8fa4-3a5da20e1064&quot;
+  }
+}</component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 5
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="2cS7fS2QUigAkQ9cyt21J9vlLkX" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <OptionsSetting value="false" id="Update" />
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
@@ -48,21 +74,52 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.ConsoleManager.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "rewrite",
     "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "onboarding.tips.debug.path": "D:/Documents/uni/Java/Lab4/src/Main.java",
-    "settings.editor.selected.configurable": "editing.templates",
+    "settings.editor.selected.configurable": "com.maddyhome.idea.vim.ui.VimEmulationConfigurable",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RunManager">
+    <configuration name="ConsoleManager" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ru.hanqnero.uni.lab5.client.ConsoleManager" />
+      <module name="Lab4" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.hanqnero.uni.lab5.client.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.ConsoleManager" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240" />
+        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -72,6 +129,8 @@
       <option name="presentableId" value="Default" />
       <updated>1708093232221</updated>
       <workItem from="1708093233245" duration="1758000" />
+      <workItem from="1715185652874" duration="3072000" />
+      <workItem from="1715191912134" duration="12140000" />
     </task>
     <servers />
   </component>
@@ -88,5 +147,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="create RemoveGreater command" />
+    <option name="LAST_COMMIT_MESSAGE" value="create RemoveGreater command" />
   </component>
 </project>
