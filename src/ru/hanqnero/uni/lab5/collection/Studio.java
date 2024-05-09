@@ -5,11 +5,13 @@ public class Studio {
     private String address; //Поле может быть null
     public Studio() {}
 
-    public void setAddress(String address) {
+    public Studio setAddress(String address) {
         this.address = address;
+        return this;
     }
-    public void setName(String name) {
+    public Studio setName(String name) {
         this.name = name;
+        return this;
     }
 
     public String getName() {
@@ -17,5 +19,10 @@ public class Studio {
     }
     public String getAddress() {
         return address;
+    }
+
+    @Override
+    public String toString() {
+        return "'" + name + "@" + address + "'";
     }
 }

@@ -4,29 +4,55 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="04ea442e-43f7-4163-8cc8-104a0ed3d7cb" name="Changes" comment="create RemoveGreater command">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/client/ClientApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/client/ConsoleManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/client/ScriptReader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/client/invokers/AbstractCommandInvoker.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/collection/Coordinates.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/collection/MusicBandBuilder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/collection/MusicGenre.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/collection/Studio.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/dto/CommandInfo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/dto/commands/Command.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/dto/executors/CommandExecutor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/dto/factories/CommandFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/dto/results/ExecutionResult.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/server/CollectionManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/server/ServerApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/server/receiver/AbstractCommandReceiver.java" afterDir="false" />
+    <list default="true" id="04ea442e-43f7-4163-8cc8-104a0ed3d7cb" name="Changes" comment="Started from scratch. Initial Commit. Completely new Architecture.">
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/client/factories/concrete/AddFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/client/factories/concrete/ExitFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/client/factories/concrete/HelpFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/client/factories/concrete/InfoFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/client/factories/concrete/ShowFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/client/handlers/ExecutionResultHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/client/handlers/concrete/AddResultHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/client/handlers/concrete/ExitResultHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/client/handlers/concrete/HelpResultHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/client/handlers/concrete/InfoHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/client/handlers/concrete/ShowHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/contract/CommandInfo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/contract/commands/client/ClientCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/contract/commands/client/Exit.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/contract/commands/concrete/AddCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/contract/commands/concrete/HelpCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/contract/commands/concrete/InfoCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/contract/commands/concrete/ShowCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/contract/results/ExecutionResult.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/contract/results/concrete/AddResult.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/contract/results/concrete/HelpResult.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/contract/results/concrete/InfoResult.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/contract/results/concrete/ShowResult.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/server/executors/concrete/AddExecutor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/server/executors/concrete/ExitExecutor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/server/executors/concrete/HelpExecutor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/server/executors/concrete/InfoExecutor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/server/executors/concrete/ShowExecutor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/util/MusicBandSubTypeScanner.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/util/exceptions/ConsoleEmptyException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/util/exceptions/SubtypeScanError.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/util/exceptions/WrongExecutorForCommandException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/util/exceptions/WrongHandlerException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/collectionMembers/Coordinates.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/collectionMembers/MusicBand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/collection/MusicBand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/collectionMembers/MusicGenre.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/collectionMembers/Studio.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/client/ClientApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/client/ClientApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/client/ConsoleManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/client/ConsoleManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/client/invokers/AbstractCommandInvoker.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/collection/MusicBand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/collection/MusicBand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/collection/Studio.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/collection/Studio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/dto/CommandInfo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/dto/commands/Command.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/contract/commands/Command.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/dto/executors/CommandExecutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/server/executors/CommandExecutor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/dto/factories/CommandFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/client/factories/CommandFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/dto/results/ExecutionResult.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/server/CollectionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/server/CollectionManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/server/ServerApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/server/ServerApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/server/receiver/AbstractCommandReceiver.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,9 +62,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
-        <option value="Enum" />
         <option value="Interface" />
+        <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -60,6 +86,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
 }</component>
@@ -74,7 +103,9 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.ClientApplication.executor": "Run",
     "Application.ConsoleManager.executor": "Run",
+    "Application.MusicBandSubTypeScanner.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
@@ -88,11 +119,47 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "onboarding.tips.debug.path": "D:/Documents/uni/Java/Lab4/src/Main.java",
+    "run.code.analysis.last.selected.profile": "pProject Default",
     "settings.editor.selected.configurable": "com.maddyhome.idea.vim.ui.VimEmulationConfigurable",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="QodanaHighlightedReportService">
+    <option name="localRunNotPublishedPersistedInfo">
+      <LocalReportPersistedInfo>
+        <option name="path" value="C:\Users\Hanqnero\AppData\Local\Temp\qodana_output\qodana.sarif.json" />
+        <option name="reportGuid" value="8c35bf25-8e33-4750-bc3c-9bc5ec8e783d" />
+        <option name="reportName" value="Lab5/qodana/2024-05-09" />
+      </LocalReportPersistedInfo>
+    </option>
+  </component>
+  <component name="QodanaIsSelectedPersistenceService">
+    <option name="selectedOrLoading" value="true" />
+  </component>
+  <component name="QodanaReportsService">
+    <option name="descriptions">
+      <ReportDescription localRun="true" path="C:\Users\Hanqnero\AppData\Local\Temp\qodana_output\qodana.sarif.json" reportGuid="8c35bf25-8e33-4750-bc3c-9bc5ec8e783d" reportId="Lab5/qodana/2024-05-09" />
+    </option>
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="ru.hanqnero.uni.lab5.util.exceptions" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.ClientApplication">
+    <configuration name="ClientApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ru.hanqnero.uni.lab5.client.ClientApplication" />
+      <module name="Lab4" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.hanqnero.uni.lab5.client.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ConsoleManager" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ru.hanqnero.uni.lab5.client.ConsoleManager" />
       <module name="Lab4" />
@@ -106,8 +173,23 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="MusicBandSubTypeScanner" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ru.hanqnero.uni.lab5.util.MusicBandSubTypeScanner" />
+      <module name="Lab4" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.hanqnero.uni.lab5.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.ClientApplication" />
+        <item itemvalue="Application.MusicBandSubTypeScanner" />
         <item itemvalue="Application.ConsoleManager" />
       </list>
     </recent_temporary>
@@ -130,8 +212,17 @@
       <updated>1708093232221</updated>
       <workItem from="1708093233245" duration="1758000" />
       <workItem from="1715185652874" duration="3072000" />
-      <workItem from="1715191912134" duration="12140000" />
+      <workItem from="1715191912134" duration="49941000" />
     </task>
+    <task id="LOCAL-00001" summary="Started from scratch. Initial Commit. Completely new Architecture.">
+      <option name="closed" value="true" />
+      <created>1715207838964</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1715207838964</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -150,6 +241,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="create RemoveGreater command" />
-    <option name="LAST_COMMIT_MESSAGE" value="create RemoveGreater command" />
+    <MESSAGE value="Started from scratch. Initial Commit" />
+    <MESSAGE value="Started from scratch. Initial Commit. Completely new Architecture." />
+    <option name="LAST_COMMIT_MESSAGE" value="Started from scratch. Initial Commit. Completely new Architecture." />
   </component>
 </project>

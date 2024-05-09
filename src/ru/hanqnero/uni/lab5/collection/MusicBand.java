@@ -29,6 +29,9 @@ public class MusicBand implements Comparable<MusicBand> {
     public void setId(Long id) {
         this.id = id;
     }
+    public Long getId() {
+        return id;
+    }
 
     public void setCreationDate(LocalDateTime creationDate) {
         if (!lockCreationDate) {
