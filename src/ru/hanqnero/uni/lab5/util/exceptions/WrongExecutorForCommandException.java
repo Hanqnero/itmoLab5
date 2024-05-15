@@ -8,8 +8,4 @@ public class WrongExecutorForCommandException extends RuntimeException{
         super("Tried to execute command of type `%s` with executor `%s` which is unsupported"
                 .formatted(command.getClass(), executor.getClass()));
     }
-    public WrongExecutorForCommandException(Command command, CommandExecutor executor, String message) {
-        super(message);
-        throw new WrongExecutorForCommandException(command, executor);
-    }
 }

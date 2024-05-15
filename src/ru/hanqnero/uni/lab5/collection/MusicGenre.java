@@ -1,5 +1,6 @@
 package ru.hanqnero.uni.lab5.collection;
 
+@SuppressWarnings("unused")
 public enum MusicGenre {
     PROGRESSIVE_ROCK,
     PSYCHEDELIC_ROCK,

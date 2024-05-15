@@ -1,8 +1,8 @@
 package ru.hanqnero.uni.lab5.collection;
 
 public class Coordinates {
-    private long x;
-    private Integer y; //Поле не может быть null
+    protected long x;
+    protected Integer y; //Поле не может быть null
 
     public Coordinates(long x, Integer y) {
         this.x = x;

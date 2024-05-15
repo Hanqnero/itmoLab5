@@ -2,7 +2,6 @@ package ru.hanqnero.uni.lab5.util;
 
 import ru.hanqnero.uni.lab5.client.ConsoleManager;
 import ru.hanqnero.uni.lab5.collection.Coordinates;
-import ru.hanqnero.uni.lab5.collection.MusicBand;
 import ru.hanqnero.uni.lab5.collection.MusicGenre;
 import ru.hanqnero.uni.lab5.collection.Studio;
 import ru.hanqnero.uni.lab5.util.exceptions.ConsoleEmptyException;
@@ -25,8 +24,10 @@ public class MusicBandSubTypeScanner {
             assert console != null;
             String line = console.nextLine("Name: ");
             if (console.isInteractive()) {
-                while (line.isBlank()) {
-                    line = console.nextLine("Name: ");
+                while (line.isBlank() || line.contains(";")) {
+                    line = console.nextLine("""
+                            Name cannot contain semicolons `;`
+                            :\s""");
                 }
             } else if (line.isBlank()) {
                 throw new SubtypeScanError(line, "Name");
@@ -50,9 +51,6 @@ public class MusicBandSubTypeScanner {
     }
 
     public Coordinates scanCoordinates() throws SubtypeScanError {
-        long x;
-        Integer y;
-
         try {
             String line = console.nextLine("Coordinates: ");
             Optional<Coordinates> coordinates = tryParseCoordinates(line);
@@ -79,19 +77,36 @@ public class MusicBandSubTypeScanner {
                     Studio. Press enter for NULL Studio
                     Send any text to start creating Studio
                     :\s""");
-
-            if (line.isBlank()) return null;
+            if (line.isBlank())
+                return null;
             else {
                 name = console.nextLine("Name, for NULL leave blank: ");
+                if (console.isInteractive()) {
+                    while (name.contains(";")) {
+                        name = console.nextLine("""
+                                Stings cannot contain `;'
+                                :\s""");
+                    }
+                } else if (name.contains(";"))
+                    throw new SubtypeScanError(name, "String");
                 name = name.isBlank() ? null : name;
 
+
                 address = console.nextLine("Address, for NULL leave blank: ");
+                if (console.isInteractive()) {
+                    while (address.contains(";")) {
+                        address = console.nextLine("""
+                                Stings cannot contain `;'
+                                :\s""");
+                    }
+                } else if (address.contains(";"))
+                    throw new SubtypeScanError(address, "String");
                 address = address.isBlank() ? null : address;
 
                 return new Studio().setName(name).setAddress(address);
             }
         } catch (ConsoleEmptyException e) {
-            throw new SubtypeScanError("<EOF reached>", "Name");
+            throw new SubtypeScanError("<EOF reached>", "Studio");
         }
     }
 
@@ -142,7 +157,10 @@ public class MusicBandSubTypeScanner {
 
     public MusicGenre scanMusicGenre() throws SubtypeScanError {
         try {
-            String line = console.nextLine("Genre: ");
+            String line = console.nextLine("""
+                            Music Genre, one of: POST_ROCK, PUNK_ROCK, PROGRESSIVE_ROCK, PSYCHEDELIC_ROCK
+                            or blank for NULL
+                            :\s""");
             if (line.isBlank()) return null;
             Optional<MusicGenre> genreOptional = tryParseMusicGenre(line);
             if (console.isInteractive()) {
@@ -226,19 +244,6 @@ public class MusicBandSubTypeScanner {
             return optional.get();
         } catch (ConsoleEmptyException e) {
             throw new SubtypeScanError("<EOF reached>", "Name");
-        }
-    }
-
-    public static void main(String[] args) {
-        var console = new ConsoleManager(System.in, System.out);
-        var scanner = new MusicBandSubTypeScanner();
-        console.setInteractiveMode(true);
-        scanner.setConsole(console);
-        try {
-            ZonedDateTime d = scanner.scanEstDate();
-            console.printlnSuc(ConsoleManager.ensureString(d));
-        } catch (SubtypeScanError e) {
-            console.printlnErr(e.getMessage());
         }
     }
 }

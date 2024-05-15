@@ -9,7 +9,6 @@ public class ConsoleManager {
     private final InputStream defaultStdin;
     private final OutputStream defaultStdout;
 
-    private InputStream stdin;
     private OutputStream stdout;
     private Scanner scanner;
     private PrintStream printout;
@@ -21,7 +20,6 @@ public class ConsoleManager {
         defaultStdin = stdin;
         defaultStdout = stdout;
 
-        this.stdin = stdin;
         this.stdout = stdout;
         scanner = new Scanner(System.in);
         this.printout = new PrintStream(stdout);
@@ -35,12 +33,10 @@ public class ConsoleManager {
     }
 
     public void setStdin(InputStream stdin) {
-        this.stdin = stdin;
         this.scanner = new Scanner(stdin);
     }
 
     public void setDefaultStdin() {
-        this.stdin = defaultStdin;
         this.scanner = new Scanner(defaultStdin);
     }
 
@@ -70,6 +66,7 @@ public class ConsoleManager {
         return nextLine();
     }
 
+    @SuppressWarnings("unused")
     public void println(String str) {
         printout.println(str);
     }

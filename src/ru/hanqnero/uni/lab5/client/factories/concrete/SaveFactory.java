@@ -2,11 +2,11 @@ package ru.hanqnero.uni.lab5.client.factories.concrete;
 
 import ru.hanqnero.uni.lab5.client.factories.CommandFactory;
 import ru.hanqnero.uni.lab5.contract.commands.Command;
-import ru.hanqnero.uni.lab5.contract.commands.concrete.ShowCommand;
+import ru.hanqnero.uni.lab5.contract.commands.concrete.SaveCommand;
 
-public class ShowFactory implements CommandFactory {
+public class SaveFactory implements CommandFactory {
     @Override
     public Command createCommand(String[] tokens) {
-        return new ShowCommand();
+        return new SaveCommand();
     }
 }

@@ -11,11 +11,14 @@ public class ServerApplication {
     private final CommandInfo[] availableCommandInfo;
     private final Map<String, CommandExecutor> executors;
 
-    public ServerApplication(CollectionManager collection) {
-
-        availableCommandInfo = CommandInfo.values().clone();
-
+    public ServerApplication() {
+        availableCommandInfo = CommandInfo.values();
         executors = CommandInfo.createExecutorsView(availableCommandInfo);
+    }
+
+    public void initializeCollection() {
+        var collection = new CollectionManager();
+        collection.initialize("TEST_VAR");
         executors.values().forEach(e -> e.setCollection(collection));
     }
 

@@ -1,8 +1,8 @@
 package ru.hanqnero.uni.lab5.collection;
 
 public class Studio {
-    private String name; //Поле может быть null
-    private String address; //Поле может быть null
+    protected String name; //Поле может быть null
+    protected String address; //Поле может быть null
     public Studio() {}
 
     public Studio setAddress(String address) {
@@ -12,13 +12,6 @@ public class Studio {
     public Studio setName(String name) {
         this.name = name;
         return this;
-    }
-
-    public String getName() {
-        return name;
-    }
-    public String getAddress() {
-        return address;
     }
 
     @Override

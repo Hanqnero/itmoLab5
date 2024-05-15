@@ -14,7 +14,6 @@ import java.time.ZonedDateTime;
 
 public class AddFactory implements CommandFactory {
     private final MusicBandSubTypeScanner scanner;
-    private ConsoleManager console;
 
     public AddFactory() {
         this.scanner = new MusicBandSubTypeScanner();
@@ -23,7 +22,6 @@ public class AddFactory implements CommandFactory {
     @Override
     public void setConsole(ConsoleManager consoleManager) {
         scanner.setConsole(consoleManager);
-        console = consoleManager;
     }
 
     @Override

@@ -3,17 +3,17 @@ package ru.hanqnero.uni.lab5.collection;
 import java.time.LocalDateTime;
 
 public class MusicBand implements Comparable<MusicBand> {
-    private Long id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
-    private java.time.LocalDateTime creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
+    protected Long id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
+    protected java.time.LocalDateTime creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
 
-    private String name; //Поле не может быть null, Строка не может быть пустой
-    private Coordinates coordinates; //Поле не может быть null
-    private Long numberOfParticipants; //Поле не может быть null, Значение поля должно быть больше 0
-    private int singlesCount; //Значение поля должно быть больше 0
-    private java.time.ZonedDateTime establishmentDate; //Поле не может быть null
-    private MusicGenre genre; //Поле может быть null
-    private Studio studio; //Поле может быть null
-    private boolean lockCreationDate = false;
+    protected String name; //Поле не может быть null, Строка не может быть пустой
+    protected Coordinates coordinates; //Поле не может быть null
+    protected Long numberOfParticipants; //Поле не может быть null, Значение поля должно быть больше 0
+    protected int singlesCount; //Значение поля должно быть больше 0
+    protected java.time.ZonedDateTime establishmentDate; //Поле не может быть null
+    protected MusicGenre genre; //Поле может быть null
+    protected Studio studio; //Поле может быть null
+    protected boolean lockCreationDate = false;
 
     //Use Builder pattern
     public MusicBand(MusicBandBuilder builder) {

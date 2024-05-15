@@ -1,6 +1,7 @@
 package ru.hanqnero.uni.lab5.server;
 
 import ru.hanqnero.uni.lab5.collection.MusicBand;
+import ru.hanqnero.uni.lab5.util.exceptions.DataBaseInitializationError;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -8,11 +9,33 @@ import java.util.TreeSet;
 import java.util.UUID;
 
 public class CollectionManager {
-    private final TreeSet<MusicBand> collection;
-    private final LocalDateTime creationDate;
-    public CollectionManager() {
-        collection = new TreeSet<>();
+    private TreeSet<MusicBand> collection;
+    private LocalDateTime creationDate;
+    private CSVManager fileManager;
+
+    public void initialize(String EnvVar) {
         creationDate = LocalDateTime.now();
+        try {
+            fileManager = new CSVManager(EnvVar);
+            if (fileManager.checkReadCSVHeader())
+                collection = fileManager.restoreFromDatabase();
+            else {
+                System.out.println("""
+                        Warning: File `%s` contains some data and not valid csv header.
+                        check before running save.
+                        """);
+            }
+        } catch (DataBaseInitializationError e) {
+            System.out.printf("""
+                    Could not restore collection from file:
+                    Error: %s
+                    Staring with empty collection""".formatted(e.getMessage()));
+            collection = new TreeSet<>();
+        }
+    }
+
+    public long saveToFile() {
+        return fileManager.writeCollection(collection);
     }
 
     private long generateId() {

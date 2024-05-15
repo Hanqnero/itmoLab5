@@ -38,12 +38,12 @@ public enum CommandInfo {
             ShowFactory::new,
             ShowExecutor::new,
             ShowHandler::new),
-ADD(
-        "add",
-        "{Music Band} - Add element to collection",
-        AddFactory::new,
-        AddExecutor::new,
-        AddResultHandler::new
+    ADD(
+            "add",
+            "{Music Band} - Add element to collection",
+            AddFactory::new,
+            AddExecutor::new,
+            AddResultHandler::new
 ),
 //    UPDATE(
 //            "update",
@@ -57,9 +57,12 @@ ADD(
 //    EXECUTE(
 //            "execute",
 //            "<filename> - Execute list of commands from file",null,null),
-//    SAVE(
-//            "save",
-//            "- Save collection to text file",null,null),
+SAVE(
+        "save",
+        "- Save collection to text file",
+        SaveFactory::new,
+        SaveExecutor::new,
+        SaveHandler::new),
 //    ADD_IF_MAX(
 //            "add_if_max",
 //            "{Music Band} - Add new element to collection if it is greater than maximum element",null,null),
@@ -150,9 +153,5 @@ ADD(
             executors.put(c.name, c.executorSupplier.get());
         }
         return executors;
-    }
-
-    public static Map<String, CommandExecutor> createExecutorsView() {
-        return createExecutorsView(values());
     }
 }

@@ -5,12 +5,10 @@ import ru.hanqnero.uni.lab5.contract.commands.Command;
 import ru.hanqnero.uni.lab5.client.factories.CommandFactory;
 import ru.hanqnero.uni.lab5.contract.results.ExecutionResult;
 import ru.hanqnero.uni.lab5.client.handlers.ExecutionResultHandler;
-import ru.hanqnero.uni.lab5.server.CollectionManager;
 import ru.hanqnero.uni.lab5.server.ServerApplication;
 import ru.hanqnero.uni.lab5.util.exceptions.ConsoleEmptyException;
 import ru.hanqnero.uni.lab5.util.exceptions.SubtypeScanError;
 
-import java.io.IOException;
 import java.util.*;
 
 public class ClientApplication {
@@ -93,7 +91,8 @@ public class ClientApplication {
 
     public static void main(String[] args) {
         ClientApplication app = new ClientApplication();
-        ServerApplication server = new ServerApplication(new CollectionManager());
+        ServerApplication server = new ServerApplication();
+        server.initializeCollection();
 
         app.connect(server);
 
