@@ -4,33 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="04ea442e-43f7-4163-8cc8-104a0ed3d7cb" name="Changes" comment="Essential commands done">
-      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/client/factories/concrete/SaveFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/client/handlers/concrete/SaveHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/collection/MusicBandORM.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/contract/commands/concrete/SaveCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/contract/results/concrete/SaveResult.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/server/CSVManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/server/executors/concrete/SaveExecutor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/util/exceptions/DataBaseInitializationError.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/util/exceptions/FileEndReachedException.java" afterDir="false" />
+    <list default="true" id="04ea442e-43f7-4163-8cc8-104a0ed3d7cb" name="Changes" comment="Update .gitignore">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lab4.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Lab4.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/client/ClientApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/client/ClientApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/client/ConsoleManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/client/ConsoleManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/client/factories/concrete/AddFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/client/factories/concrete/AddFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/client/factories/concrete/InfoFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/client/factories/concrete/InfoFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/client/factories/concrete/ShowFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/client/factories/concrete/ShowFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/collection/Coordinates.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/collection/Coordinates.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/collection/MusicBand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/collection/MusicBand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/collection/MusicGenre.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/collection/MusicGenre.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/collection/Studio.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/collection/Studio.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/contract/CommandInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/contract/CommandInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/contract/commands/client/ClientCommand.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/server/CollectionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/server/CollectionManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/server/ServerApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/server/ServerApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/util/MusicBandSubTypeScanner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/util/MusicBandSubTypeScanner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/util/exceptions/WrongExecutorForCommandException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ru/hanqnero/uni/lab5/util/exceptions/WrongExecutorForCommandException.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,6 +23,12 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PUSH_TAGS">
+      <GitPushTagMode>
+        <option name="argument" value="--tags" />
+        <option name="title" value="All" />
+      </GitPushTagMode>
+    </option>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$" value="7000ff2ebd6df64da2c6b69cb626596e60273718" />
@@ -61,17 +42,17 @@
     &quot;assignee&quot;: &quot;Hanqnero&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/hanqnero/itmolab5",
-    "accountId": "585879c0-512e-4cfd-a810-2127b8b32c77"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/hanqnero/itmolab5&quot;,
+    &quot;accountId&quot;: &quot;585879c0-512e-4cfd-a810-2127b8b32c77&quot;
   }
-}]]></component>
+}</component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
@@ -112,6 +93,11 @@
     &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;com.maddyhome.idea.vim.ui.VimEmulationConfigurable&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
+      &quot;JAVA&quot;
+    ]
   }
 }</component>
   <component name="QodanaIsSelectedPersistenceService">
@@ -196,7 +182,8 @@
       <workItem from="1708093233245" duration="1758000" />
       <workItem from="1715185652874" duration="3072000" />
       <workItem from="1715191912134" duration="49941000" />
-      <workItem from="1715803940872" duration="545000" />
+      <workItem from="1715803940872" duration="3498000" />
+      <workItem from="1716492119472" duration="581000" />
     </task>
     <task id="LOCAL-00001" summary="Started from scratch. Initial Commit. Completely new Architecture.">
       <option name="closed" value="true" />
@@ -206,7 +193,31 @@
       <option name="project" value="LOCAL" />
       <updated>1715207838964</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Essential commands done">
+      <option name="closed" value="true" />
+      <created>1715804582469</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1715804582469</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Essential commands done">
+      <option name="closed" value="true" />
+      <created>1715804627306</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1715804627306</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Update .gitignore">
+      <option name="closed" value="true" />
+      <created>1715807371913</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1715807371913</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -228,7 +239,8 @@
     <MESSAGE value="Started from scratch. Initial Commit" />
     <MESSAGE value="Started from scratch. Initial Commit. Completely new Architecture." />
     <MESSAGE value="Essential commands done" />
-    <option name="LAST_COMMIT_MESSAGE" value="Essential commands done" />
+    <MESSAGE value="Update .gitignore" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update .gitignore" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
