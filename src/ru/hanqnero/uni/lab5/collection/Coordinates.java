@@ -1,6 +1,8 @@
 package ru.hanqnero.uni.lab5.collection;
 
-public class Coordinates {
+import java.io.Serializable;
+
+public class Coordinates implements Serializable {
     protected long x;
     protected Integer y; //Поле не может быть null
 

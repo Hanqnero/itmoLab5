@@ -9,6 +9,13 @@ import ru.hanqnero.uni.lab5.server.ServerApplication;
 import ru.hanqnero.uni.lab5.util.exceptions.ConsoleEmptyException;
 import ru.hanqnero.uni.lab5.util.exceptions.SubtypeScanError;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.Socket;
 import java.util.*;
 
 public class ClientApplication {
@@ -16,6 +23,7 @@ public class ClientApplication {
     private ServerApplication server;
     private final Map<String, CommandFactory> factories;
     private final Map<String, ExecutionResultHandler> handlers;
+    private Socket socket;
 
 
     public ClientApplication() {
@@ -24,8 +32,13 @@ public class ClientApplication {
         this.handlers = CommandInfo.createHandlersView();
     }
 
-    public void connect(ServerApplication server) {
-        this.server = server;
+    public void connect(String address, int port) {
+        try {
+            this.socket = new Socket(address, port);
+        } catch (IOException e) {
+            console.printlnErr("Could not connect to server");
+            throw new RuntimeException(e);
+        }
     }
 
     private Optional<Command> createCommandFromTokens(String[] tokens) throws SubtypeScanError {
@@ -67,9 +80,18 @@ public class ClientApplication {
         }
         Command command = commandOptional.get();
 
-        ExecutionResult response = server.response(command);
+        try {
+            var oos = new ObjectOutputStream(socket.getOutputStream());
+            oos.writeObject(command);
 
-        handleResponse(response);
+            var ois = new ObjectInputStream(socket.getInputStream());
+            ExecutionResult response = (ExecutionResult) ois.readObject();
+            handleResponse(response);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            console.printlnErr("Could not deserialize result of command `%s`".formatted(tokens[0]));
+        }
     }
 
     public void handleResponse(ExecutionResult response) {
@@ -79,6 +101,7 @@ public class ClientApplication {
         }
         ExecutionResultHandler handler = handlers.get(response.getCommandName());
         handler.setConsole(console);
+        handler.setClient(this);
         handler.handleResult(response);
     }
 
@@ -91,11 +114,23 @@ public class ClientApplication {
 
     public static void main(String[] args) {
         ClientApplication app = new ClientApplication();
-        ServerApplication server = new ServerApplication();
-        server.initializeCollection();
 
-        app.connect(server);
-
+        app.connect("127.0.0.1", 16482);
         app.repl();
+    }
+
+    public void closeConnection() {
+        try {
+            socket.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        socket = null;
+    }
+
+    public void stop() {
+        closeConnection();
+        console.printlnWarn("Stopped connection.");
+        console.printlnWarn("Shutting down...");
     }
 }
