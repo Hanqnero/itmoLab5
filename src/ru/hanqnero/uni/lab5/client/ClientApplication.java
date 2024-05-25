@@ -1,29 +1,25 @@
 package ru.hanqnero.uni.lab5.client;
 
+import ru.hanqnero.uni.lab5.client.factories.CommandFactory;
+import ru.hanqnero.uni.lab5.client.handlers.ExecutionResultHandler;
 import ru.hanqnero.uni.lab5.contract.CommandInfo;
 import ru.hanqnero.uni.lab5.contract.commands.Command;
-import ru.hanqnero.uni.lab5.client.factories.CommandFactory;
 import ru.hanqnero.uni.lab5.contract.results.ExecutionResult;
-import ru.hanqnero.uni.lab5.client.handlers.ExecutionResultHandler;
-import ru.hanqnero.uni.lab5.server.ServerApplication;
 import ru.hanqnero.uni.lab5.util.exceptions.ConsoleEmptyException;
 import ru.hanqnero.uni.lab5.util.exceptions.SubtypeScanError;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Inet4Address;
-import java.net.InetAddress;
+import java.io.*;
 import java.net.InetSocketAddress;
-import java.net.Socket;
-import java.util.*;
+import java.nio.ByteBuffer;
+import java.nio.channels.SocketChannel;
+import java.util.Map;
+import java.util.Optional;
 
 public class ClientApplication {
     private final ConsoleManager console;
-    private ServerApplication server;
     private final Map<String, CommandFactory> factories;
     private final Map<String, ExecutionResultHandler> handlers;
-    private Socket socket;
+    private SocketChannel socketChannel;
 
 
     public ClientApplication() {
@@ -32,13 +28,29 @@ public class ClientApplication {
         this.handlers = CommandInfo.createHandlersView();
     }
 
-    public void connect(String address, int port) {
+    public static void main(String[] args) {
+        ClientApplication app = new ClientApplication();
         try {
-            this.socket = new Socket(address, port);
+            app.initSocketChannel();
         } catch (IOException e) {
-            console.printlnErr("Could not connect to server");
-            throw new RuntimeException(e);
+            app.console.printlnErr("Could not initialize network stack. Fatal Error.");
+            System.exit(1);
         }
+        try {
+            app.console.println("Connecting to server...");
+            if (!app.connect("127.0.0.1", 16482)) {
+                app.console.printlnWarn("Connecting to server will take some time");
+            }
+            while (!app.socketChannel.finishConnect()) {
+                // Thread.sleep(100);
+            }
+            app.console.printlnSuc("Connection successful.");
+        } catch (IOException e) {
+            app.console.printlnErr("Could not connect to server. Fatal Error.");
+            System.exit(1);
+        }
+        app.repl();
+        app.stop();
     }
 
     private Optional<Command> createCommandFromTokens(String[] tokens) throws SubtypeScanError {
@@ -52,7 +64,7 @@ public class ClientApplication {
         return Optional.of(factory.createCommand(tokens));
     }
 
-    public void readExecuteCommand() {
+    public Optional<Command> readCommand() {
         String line = "";
         try {
            line = console.nextLine();
@@ -61,7 +73,7 @@ public class ClientApplication {
         }
 
         if (line.isEmpty()) {
-            return;
+            return Optional.empty();
         }
 
         String[] tokens = line.split(" ");
@@ -72,26 +84,12 @@ public class ClientApplication {
         try {
             commandOptional = createCommandFromTokens(tokens);
         } catch (SubtypeScanError e) {
-            return;
+            return Optional.empty();
         }
         if (commandOptional.isEmpty()) {
             console.printlnErr("No such command `%s`".formatted(tokens[0]));
-            return;
         }
-        Command command = commandOptional.get();
-
-        try {
-            var oos = new ObjectOutputStream(socket.getOutputStream());
-            oos.writeObject(command);
-
-            var ois = new ObjectInputStream(socket.getInputStream());
-            ExecutionResult response = (ExecutionResult) ois.readObject();
-            handleResponse(response);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            console.printlnErr("Could not deserialize result of command `%s`".formatted(tokens[0]));
-        }
+        return commandOptional;
     }
 
     public void handleResponse(ExecutionResult response) {
@@ -107,30 +105,77 @@ public class ClientApplication {
 
     public void repl() {
         while (console.hasNext()) {
-            readExecuteCommand();
+            Optional<Command> command = readCommand();
+            boolean commandSent;
+            if (command.isPresent()) {
+                commandSent = sendCommand(command.get());
+            } else {
+                continue;
+            }
+            if (commandSent) {
+                ExecutionResult receivedResult = retrieveResult();
+                handleResponse(receivedResult);
+            }
         }
         console.printlnWarn("EOF reached. exiting REPL...");
     }
 
-    public static void main(String[] args) {
-        ClientApplication app = new ClientApplication();
-
-        app.connect("127.0.0.1", 16482);
-        app.repl();
+    public void initSocketChannel() throws IOException {
+        socketChannel = SocketChannel.open();
+        socketChannel
+                .bind(null)
+                .configureBlocking(false);
     }
 
-    public void closeConnection() {
+    public boolean connect(String hostname, int port) throws IOException {
+        return socketChannel.connect(new InetSocketAddress(hostname, port));
+    }
+
+    public boolean sendCommand(Command command) {
         try {
-            socket.close();
+            var baos = new ByteArrayOutputStream();
+            var oos = new ObjectOutputStream(baos);
+
+            oos.writeObject(command);
+            oos.flush();
+            oos.close();
+
+            var buf = ByteBuffer.wrap(baos.toByteArray());
+            socketChannel.write(buf);
+            return true;
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            console.printlnErr("Could not send command");
+            return false;
         }
-        socket = null;
+    }
+
+    public ExecutionResult retrieveResult() {
+        try {
+            var buf = ByteBuffer.allocate(2048);
+            socketChannel.read(buf);
+            buf.flip();
+            var bis = new ByteArrayInputStream(buf.array());
+            var ois = new ObjectInputStream(bis);
+
+            return (ExecutionResult) ois.readObject();
+
+        } catch (IOException | ClassNotFoundException e) {
+            console.printlnErr("Error reading result from server");
+            console.printlnErr(e.getMessage());
+            return null;
+        }
+    }
+
+    public void closeConnection() throws IOException {
+        socketChannel.close();
     }
 
     public void stop() {
-        closeConnection();
-        console.printlnWarn("Stopped connection.");
-        console.printlnWarn("Shutting down...");
+        try {
+            closeConnection();
+            console.println("Connection closed successfully.");
+        } catch (IOException e) {
+            console.printlnErr("Could not close connection. Exiting anyway");
+        }
     }
 }
