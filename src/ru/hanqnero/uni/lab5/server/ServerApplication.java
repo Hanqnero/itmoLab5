@@ -8,11 +8,8 @@ import ru.hanqnero.uni.lab5.server.console.ServerConsole;
 import ru.hanqnero.uni.lab5.server.executors.CommandExecutor;
 
 import java.io.*;
-import java.net.InetSocketAddress;
-import java.net.Socket;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
-import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.util.Map;
@@ -24,9 +21,8 @@ public class ServerApplication {
     private final ServerConsole console;
     private final Map<String, Consumer<ServerApplication>> serverCommands;
     private CollectionManager collection;
-    private Socket clientSocket;
-    private ServerSocketChannel serverSocket;
-    private Selector selector;
+
+    private final TCPServer tcpServer = new TCPServer();
 
     public ServerApplication() {
         availableCommandInfo = CommandInfo.values();
@@ -37,25 +33,22 @@ public class ServerApplication {
 
     public static void main(String[] args) {
         ServerApplication server = new ServerApplication();
+        server.initCollection();
 
-        int port;
-        try { port = Integer.parseInt(args[0]); }
-        catch (NumberFormatException | ArrayIndexOutOfBoundsException e) { port = 16482; }
-
-        server.initializeCollection();
-
-        try { server.initSelectorWithSocket(port);
+        try { server.initTCPServer();
         } catch (IOException e) {
-            server.console.println("Could not start listening on port " + port);
+            server.console.println("Could not start listening on port " + TCPServer.PORT);
             server.console.println(e.getMessage());
         }
-
-        server.loop();
+        try {
+            server.loop();
+        } catch (IOException e) {
+            server.console.println("Error inside server main loop");
+        }
         server.closeConnection();
-
     }
 
-    public void initializeCollection() {
+    public void initCollection() {
         var collection = new CollectionManager();
         this.collection = collection;
         collection.initialize("TEST_VAR");
@@ -84,19 +77,17 @@ public class ServerApplication {
     }
 
     public void stop() {
-        // TODO
         console.println("Stopping server...");
+        closeConnection();
         System.exit(0);
     }
 
     public void closeConnection() {
-        // TODO
         try {
-            clientSocket.close();
+            tcpServer.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        clientSocket = null;
     }
 
     private void handleServerCommand() throws ServerConsole.ServerConsoleEOFException {
@@ -110,19 +101,20 @@ public class ServerApplication {
         }
     }
 
-    private void initSelectorWithSocket(int port) throws IOException {
-        serverSocket = ServerSocketChannel.open();
-        serverSocket
-                .bind(new InetSocketAddress(port))
-                .configureBlocking(false);
-        selector = Selector.open();
-        serverSocket.register(selector, SelectionKey.OP_ACCEPT);
+    private void initTCPServer() throws IOException {
+        tcpServer.init();
     }
 
-    private void register() throws IOException {
-        SocketChannel client = serverSocket.accept();
-        client.configureBlocking(false);
-        client.register(selector, SelectionKey.OP_READ);
+    private void register(SelectionKey key) {
+        try (var serverSocket = (ServerSocketChannel) key.channel()){
+
+            SocketChannel client = serverSocket.accept();
+            client.configureBlocking(false);
+            client.register(null, SelectionKey.OP_READ);
+            console.println("Accepted a connection from client on address " + client.getLocalAddress());
+        } catch (IOException e) {
+            console.println("Could not accept connection from a client.");
+        }
     }
 
     private void answer(SelectionKey key) {
@@ -133,11 +125,20 @@ public class ServerApplication {
             client.read(buf);
             buf.flip();
 
+            console.println("Got buffer from client");
+            console.println(buf.toString());
+
+
             var bis = new ByteArrayInputStream(buf.array());
             var ois = new ObjectInputStream(bis);
 
             Command command = (Command) ois.readObject();
+
+            console.println("Deserialized command from buffer " + command.toString());
+
             ExecutionResult result = response(command);
+
+            console.println("Starting serializing response " + result.toString());
 
             var bos = new ByteArrayOutputStream();
             var oos = new ObjectOutputStream(bos);
@@ -147,9 +148,17 @@ public class ServerApplication {
             oos.close();
 
             buf = ByteBuffer.wrap(bos.toByteArray());
+            buf.flip();
+
+            console.println("Serialized response " + buf);
+
             client.write(buf);
 
+            console.println("Successfully wrote response to channel");
+
             client.close();
+            console.println("Closed client channel on server side");
+
         } catch (IOException e) {
             console.println(e.getMessage());
         } catch (ClassNotFoundException e) {
@@ -157,7 +166,7 @@ public class ServerApplication {
         }
     }
 
-    public void loop() {
+    public void loop() throws IOException {
         while (true) {
             try {
                 handleServerCommand();
@@ -165,23 +174,15 @@ public class ServerApplication {
                 console.println("Received stop signal from console");
                 break;
             }
-            try {
-                selector.selectNow();
-                var keysIter = selector.selectedKeys().iterator();
-                if (!keysIter.hasNext()) {
-                    continue;
-                }
-                SelectionKey key = keysIter.next();
 
-                if (key.isAcceptable()) {
-                    register();
-                } else if (key.isReadable()) {
-                    answer(key);
-                    keysIter.remove();
-                }
-            } catch (IOException e) {
-                console.println(e.getMessage());
+            var keysIter = tcpServer.selectNowIter();
+
+            while (keysIter.hasNext()) {
+                var key = keysIter.next();
+                tcpServer.handleKey(key, this::response);
+                keysIter.remove();
             }
+
         }
     }
 }

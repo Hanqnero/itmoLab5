@@ -92,6 +92,10 @@ public class ConsoleManager {
         println("W: " + str, ANSIColor.YELLOW);
     }
 
+    public void print(String s) {
+        printout.print(s);
+    }
+
     private enum ANSIColor {
         RED("\u001B[31m"),
         GREEN("\u001B[32m"),
