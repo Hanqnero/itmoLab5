@@ -91,7 +91,7 @@ public class MusicBandORM {
                 estCDT + ";" +
                 genre + ";" +
                 stName + ";" +
-                stAddress + ";" +
+                stAddress +
                 "\n";
     }
 }

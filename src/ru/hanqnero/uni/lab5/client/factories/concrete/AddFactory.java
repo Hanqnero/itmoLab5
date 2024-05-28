@@ -8,6 +8,7 @@ import ru.hanqnero.uni.lab5.collection.Studio;
 import ru.hanqnero.uni.lab5.contract.commands.Command;
 import ru.hanqnero.uni.lab5.contract.commands.concrete.AddCommand;
 import ru.hanqnero.uni.lab5.util.MusicBandSubTypeScanner;
+import ru.hanqnero.uni.lab5.util.exceptions.CommandCreationError;
 import ru.hanqnero.uni.lab5.util.exceptions.SubtypeScanError;
 
 import java.time.ZonedDateTime;
@@ -25,7 +26,17 @@ public class AddFactory implements CommandFactory {
     }
 
     @Override
-    public Command createCommand(String[] tokens) throws SubtypeScanError {
+    public Command createCommand(String[] tokens) throws SubtypeScanError, CommandCreationError {
+
+        String variant = "NORMAL";
+        if (tokens.length == 2) {
+            switch (tokens[1].toLowerCase()) {
+                case "--min" -> variant = "MIN";
+                case "--max" -> variant = "MAX";
+                default -> throw new CommandCreationError();
+            }
+        } else if (tokens.length != 1) throw new CommandCreationError();
+
             String name = scanner.scanName();
             Coordinates coordinates = scanner.scanCoordinates();
             Long numberOfParticipants = scanner.scanNumberOfParticipants();
@@ -42,7 +53,8 @@ public class AddFactory implements CommandFactory {
                     singlesCount,
                     establishmentDate,
                     studio,
-                    genre
+                    genre,
+                    variant
             );
     }
 }

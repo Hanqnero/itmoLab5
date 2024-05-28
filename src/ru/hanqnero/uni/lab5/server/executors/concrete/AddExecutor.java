@@ -28,10 +28,24 @@ public class AddExecutor implements CommandExecutor {
         )
                 .setStudio(add.studio())
                 .setGenre(add.genre());
-        Optional<Long> newId = collectionManager.add(new MusicBand(builder));
-        return newId.map(
-                aLong -> new AddResult(ExecutionResult.Status.SUCCESS, aLong))
-                .orElseGet(() -> new AddResult(ExecutionResult.Status.ERROR, 0L));
+
+        var newBand = new MusicBand(builder);
+
+        switch (add.variant()) {
+            case "MIN" -> {
+                if (!collectionManager.isMin(newBand))
+                    return new AddResult(ExecutionResult.Status.ERROR, 0L);
+            }
+            case "MAX" -> {
+                if (!collectionManager.isMax(newBand))
+                    return new AddResult(ExecutionResult.Status.ERROR, 0L);
+            }
+            default -> {}
+        }
+            Optional<Long> newId = collectionManager.add(newBand);
+            return newId.map(
+                            aLong -> new AddResult(ExecutionResult.Status.SUCCESS, aLong))
+                    .orElseGet(() -> new AddResult(ExecutionResult.Status.ERROR, 0L));
     }
 
     @Override

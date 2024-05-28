@@ -25,7 +25,6 @@ public enum CommandInfo {
             ExitExecutor::new,
             ExitResultHandler::new
     ),
-
     INFO(
             "info",
             "- Display information about collection",
@@ -40,11 +39,11 @@ public enum CommandInfo {
             ShowHandler::new),
     ADD(
             "add",
-            "{Music Band} - Add element to collection",
+            "[--min|--max] {Music Band} - Add element to collection",
             AddFactory::new,
             AddExecutor::new,
             AddResultHandler::new
-),
+    ),
 //    UPDATE(
 //            "update",
 //            "<id> {Music Band} - Update element in collection",null,null),
@@ -54,30 +53,41 @@ public enum CommandInfo {
 //    CLEAR(
 //            "clear",
 //            "- Remove all items from the collection",null,null),
-//    EXECUTE(
-//            "execute",
-//            "<filename> - Execute list of commands from file",null,null),
-SAVE(
-        "save",
-        "- Save collection to text file",
-        SaveFactory::new,
-        SaveExecutor::new,
-        SaveHandler::new),
-//    ADD_IF_MAX(
-//            "add_if_max",
-//            "{Music Band} - Add new element to collection if it is greater than maximum element",null,null),
-//    ADD_IF_MIN(
-//            "add_if_min",
-//            "{Music Band} - Add new element to collection if it is less than minimum element",null,null),
+    SCRIPT(
+            "execute",
+            "<filename> - Execute list of commands from file",
+            ScriptFactory::new,
+            ScriptExecutor::new,
+            ScriptResultHandler::new
+    ),
+    SAVE(
+            "save",
+            "- Save collection to text file",
+            SaveFactory::new,
+            SaveExecutor::new,
+            SaveHandler::new
+    ),
 //    REMOVE_GR(
 //            "remove_greater",
-//            "{Music Band} - Remove all elements exceeding this from collection",null,null),
+//            "{Music Band} - Remove all elements exceeding this from collection",
+//            null,
+//            null,
+//            null
+//    ),
 //    REMOVE_STUDIO(
 //            "remove_by_studio",
-//            "{Studio} - Remove all elements with matching studio",null,null),
+//            "{Studio} - Remove all elements with matching studio",
+//            null,
+//            null,
+//            null
+//    ),
 //    MAX_BY_EST_DATE(
 //            "max_by_establishment",
-//            "- Display maximum element by establishment date",null,null),
+//            "- Display maximum element by establishment date",
+//            null,
+//            null,
+//            null
+//    ),
     ;
 
     private final String name;

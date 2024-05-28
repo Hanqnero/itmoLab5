@@ -83,8 +83,10 @@ public class TCPServer {
         }
         System.out.println("Got buffer from client");
         System.out.println(buffer);
-        ExecutionResult response = executor.apply(Serializer.deserialize(buffer));
-        System.out.println("Deserialized command from buffer " + response.toString());
+
+        Command command = Serializer.deserialize(buffer);
+        ExecutionResult response = executor.apply(command);
+        System.out.println("Deserialized command from buffer " + command.toString());
         socketChannel.register(this.selector, SelectionKey.OP_WRITE, response);
     }
 

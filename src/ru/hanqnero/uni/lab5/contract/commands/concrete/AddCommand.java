@@ -15,7 +15,8 @@ public record AddCommand(
         int singles,
         ZonedDateTime estDate,
         Studio studio,
-        MusicGenre genre
+        MusicGenre genre,
+        String variant
 ) implements Command {
     @Override
     public String getName() {

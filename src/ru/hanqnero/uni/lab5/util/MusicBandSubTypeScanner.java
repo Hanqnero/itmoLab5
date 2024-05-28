@@ -29,8 +29,11 @@ public class MusicBandSubTypeScanner {
                             Name cannot contain semicolons `;`
                             :\s""");
                 }
-            } else if (line.isBlank()) {
-                throw new SubtypeScanError(line, "Name");
+            } else {
+                console.println(line);
+                if (line.isBlank()) {
+                    throw new SubtypeScanError(line, "Name");
+                }
             }
             return line;
         } catch (ConsoleEmptyException e) {
@@ -59,8 +62,11 @@ public class MusicBandSubTypeScanner {
                     line = console.nextLine("Coordinates: ");
                     coordinates = tryParseCoordinates(line);
                 }
-            } else if (coordinates.isEmpty()) {
-                throw new SubtypeScanError(line, "Coordinates");
+            } else {
+                console.println(line);
+                if (coordinates.isEmpty()) {
+                    throw new SubtypeScanError(line, "Coordinates");
+                }
             }
             return coordinates.get();
         } catch (ConsoleEmptyException e) {
@@ -73,13 +79,13 @@ public class MusicBandSubTypeScanner {
         String address;
         try {
 
-            String line = console.nextLine("""
-                    Studio. Press enter for NULL Studio
-                    Send any text to start creating Studio
-                    :\s""");
-            if (line.isBlank())
-                return null;
-            else {
+//            String line = console.nextLine("""
+//                    Studio. Press enter for NULL Studio
+//                    Send any text to start creating Studio
+//                    :\s""");
+//            if (line.isBlank())
+//                return null;
+//            else {
                 name = console.nextLine("Name, for NULL leave blank: ");
                 if (console.isInteractive()) {
                     while (name.contains(";")) {
@@ -87,24 +93,35 @@ public class MusicBandSubTypeScanner {
                                 Stings cannot contain `;'
                                 :\s""");
                     }
-                } else if (name.contains(";"))
-                    throw new SubtypeScanError(name, "String");
-                name = name.isBlank() ? null : name;
-
+                } else {
+                    console.println(name);
+                    if (name.contains(";"))
+                        throw new SubtypeScanError(name, "String");
+                }
+                if (name.isBlank() || name.equals("NULL"))
+                    name = null;
 
                 address = console.nextLine("Address, for NULL leave blank: ");
+
                 if (console.isInteractive()) {
                     while (address.contains(";")) {
                         address = console.nextLine("""
                                 Stings cannot contain `;'
                                 :\s""");
                     }
-                } else if (address.contains(";"))
-                    throw new SubtypeScanError(address, "String");
-                address = address.isBlank() ? null : address;
+                } else {
+                    console.println(address);
+                    if (address.contains(";"))
+                        throw new SubtypeScanError(address, "String");
+                }
+                if (address.isBlank() || address.equals("NULL"))
+                    address = null;
+
+                if (name == null && address == null)
+                    return null;
 
                 return new Studio().setName(name).setAddress(address);
-            }
+//            }
         } catch (ConsoleEmptyException e) {
             throw new SubtypeScanError("<EOF reached>", "Studio");
         }
@@ -120,7 +137,7 @@ public class MusicBandSubTypeScanner {
     }
 
     private Optional<ZonedDateTime> tryParseDateTime(String string) {
-        if (string.isBlank()) return Optional.of(ZonedDateTime.now());
+        if (string.isBlank() || string.equalsIgnoreCase("now")) return Optional.of(ZonedDateTime.now());
         try {
             // 2011-12-03T10:15:30+01:00[Europe/ Paris]
             ZonedDateTime dateTime = ZonedDateTime.parse(string);
@@ -135,7 +152,7 @@ public class MusicBandSubTypeScanner {
             String line = console.nextLine("""
                             Establishment date
                             Format: `2005-02-14T13:37:00+05`
-                            or blank line for `now`
+                            blank line or 'now' for current time
                             :\s""");
             Optional<ZonedDateTime> dateTimeOptional = tryParseDateTime(line);
             if (console.isInteractive()) {
@@ -146,8 +163,11 @@ public class MusicBandSubTypeScanner {
                             :\s""");
                     dateTimeOptional = tryParseDateTime(line);
                 }
-            } else if (dateTimeOptional.isEmpty()) {
-                throw new SubtypeScanError(line, "Date");
+            } else {
+                console.println(line);
+                if (dateTimeOptional.isEmpty()) {
+                    throw new SubtypeScanError(line, "Date");
+                }
             }
             return dateTimeOptional.orElseThrow(RuntimeException::new);
         } catch (ConsoleEmptyException e) {
@@ -161,7 +181,7 @@ public class MusicBandSubTypeScanner {
                             Music Genre, one of: POST_ROCK, PUNK_ROCK, PROGRESSIVE_ROCK, PSYCHEDELIC_ROCK
                             or blank for NULL
                             :\s""");
-            if (line.isBlank()) return null;
+            if (line.isBlank() || line.equals("NULL")) return null;
             Optional<MusicGenre> genreOptional = tryParseMusicGenre(line);
             if (console.isInteractive()) {
                 while (genreOptional.isEmpty()) {
@@ -172,8 +192,11 @@ public class MusicBandSubTypeScanner {
                     if (line.isBlank()) return null;
                     genreOptional = tryParseMusicGenre(line);
                 }
-            } else if (genreOptional.isEmpty()) {
-                throw new SubtypeScanError(line, "MusicGenre");
+            } else {
+                console.println(line);
+                if (genreOptional.isEmpty()) {
+                    throw new SubtypeScanError(line, "MusicGenre");
+                }
             }
             return genreOptional.get();
         } catch (ConsoleEmptyException e) {
@@ -205,8 +228,11 @@ public class MusicBandSubTypeScanner {
                             :\s""");
                     optional = tryParseMatchingInteger(line, x -> x > 0);
                 }
-            } else if (optional.isEmpty()) {
-                throw new SubtypeScanError(line, "Singles Count");
+            } else {
+                console.println(line);
+                if (optional.isEmpty()) {
+                    throw new SubtypeScanError(line, "Singles Count");
+                }
             }
             return optional.get();
         } catch (ConsoleEmptyException e) {
@@ -238,8 +264,11 @@ public class MusicBandSubTypeScanner {
                             :\s""");
                     optional = tryParseMatchingLong(line, x -> x > 0);
                 }
-            } else if (optional.isEmpty()) {
-                throw new SubtypeScanError(line, "Number of participants");
+            } else {
+                console.println(line);
+                if (optional.isEmpty()) {
+                    throw new SubtypeScanError(line, "Number of participants");
+                }
             }
             return optional.get();
         } catch (ConsoleEmptyException e) {

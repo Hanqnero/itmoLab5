@@ -21,7 +21,6 @@ public class TCPClient {
     private final ByteBuffer buffer = ByteBuffer.allocate(TCPServer.BUF_SIZE);
 
     private int reconAttempt = 0;
-    private final int MAX_ATTEMPTS = 30;
 
 
     public TCPClient() throws IOException {
@@ -34,7 +33,10 @@ public class TCPClient {
             reconAttempt = 0;
             return true;
         }
-        if (++reconAttempt >=MAX_ATTEMPTS) return false;
+
+        final int MAX_ATTEMPTS = 30;
+
+        if (++reconAttempt >= MAX_ATTEMPTS) return false;
 
         try {
             Thread.sleep(500);
@@ -48,13 +50,11 @@ public class TCPClient {
         return ensureConnected();
     }
 
-    public boolean connect() throws IOException {
+    public void connect() throws IOException {
         try {
             socketChannel.connect(new InetSocketAddress(remote, port));
-            return true;
         } catch (ConnectException e) {
             System.out.println("Could not connect to server");
-            return false;
         }
     }
 
@@ -84,8 +84,6 @@ public class TCPClient {
             System.out.println("Server has closed the connection");
             return Optional.empty();
         }
-
-        System.out.println(buffer);
 
         return Optional.of(Serializer.deserialize(buffer));
     }

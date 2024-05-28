@@ -2,27 +2,31 @@ package ru.hanqnero.uni.lab5.client;
 
 import ru.hanqnero.uni.lab5.util.exceptions.ConsoleEmptyException;
 
-import java.io.*;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.util.Scanner;
 
 public class ConsoleManager {
-    private final InputStream defaultStdin;
-    private final OutputStream defaultStdout;
-
-    private OutputStream stdout;
-    private Scanner scanner;
-    private PrintStream printout;
+    private final OutputStream stdout;
+    private final Scanner scanner;
+    private final PrintStream printout;
 
     private boolean recursiveSubtypeScan = true;
-
+    private final ScriptManager scriptManager = new ScriptManager();
 
     public ConsoleManager(InputStream stdin, OutputStream stdout) {
-        defaultStdin = stdin;
-        defaultStdout = stdout;
-
         this.stdout = stdout;
-        scanner = new Scanner(System.in);
+        scanner = new Scanner(stdin);
         this.printout = new PrintStream(stdout);
+    }
+
+    public ScriptManager getScriptManager() {
+        return scriptManager;
+    }
+
+    public OutputStream getStdout() {
+        return stdout;
     }
 
     public boolean isInteractive() {
@@ -32,23 +36,6 @@ public class ConsoleManager {
         recursiveSubtypeScan = mode;
     }
 
-    public void setStdin(InputStream stdin) {
-        this.scanner = new Scanner(stdin);
-    }
-
-    public void setDefaultStdin() {
-        this.scanner = new Scanner(defaultStdin);
-    }
-
-    public void setStdout(OutputStream stdout) {
-        this.stdout = stdout;
-        this.printout = new PrintStream(stdout);
-    }
-
-    public void setDefaultStdout() {
-        this.stdout = defaultStdout;
-        this.printout = new PrintStream(stdout);
-    }
 
     public boolean hasNext() {
         return scanner.hasNextLine();
@@ -84,14 +71,11 @@ public class ConsoleManager {
         println("S: "+str, ANSIColor.GREEN);
     }
 
-    public static String ensureString(Object o) {
-        return o == null ? "NULL" : o.toString();
-    }
-
     public void printlnWarn(String str) {
         println("W: " + str, ANSIColor.YELLOW);
     }
 
+    @SuppressWarnings("unused")
     public void print(String s) {
         printout.print(s);
     }

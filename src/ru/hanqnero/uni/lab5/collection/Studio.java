@@ -1,6 +1,9 @@
 package ru.hanqnero.uni.lab5.collection;
 
-public class Studio {
+import java.io.Serializable;
+import java.util.Objects;
+
+public class Studio implements Serializable {
     protected String name; //Поле может быть null
     protected String address; //Поле может быть null
     public Studio() {}
@@ -17,5 +20,18 @@ public class Studio {
     @Override
     public String toString() {
         return "'" + name + "@" + address + "'";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Studio studio = (Studio) o;
+        return Objects.equals(name, studio.name) && Objects.equals(address, studio.address);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, address);
     }
 }

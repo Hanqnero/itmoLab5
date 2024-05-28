@@ -5,6 +5,7 @@ import ru.hanqnero.uni.lab5.client.handlers.ExecutionResultHandler;
 import ru.hanqnero.uni.lab5.contract.CommandInfo;
 import ru.hanqnero.uni.lab5.contract.commands.Command;
 import ru.hanqnero.uni.lab5.contract.results.ExecutionResult;
+import ru.hanqnero.uni.lab5.util.exceptions.CommandCreationError;
 import ru.hanqnero.uni.lab5.util.exceptions.ConsoleEmptyException;
 import ru.hanqnero.uni.lab5.util.exceptions.SubtypeScanError;
 
@@ -13,13 +14,14 @@ import java.nio.channels.ClosedChannelException;
 import java.util.*;
 
 public class ClientApplication {
+    public static final boolean DEBUG = true;
     private final ConsoleManager console;
     private final Map<String, CommandFactory> factories;
     private final Map<String, ExecutionResultHandler> handlers;
 
     private TCPClient tcpClient;
 
-    private final Queue<Command> commandsQueue = new ArrayDeque<>();
+    private final Deque<Command> commandsQueue = new ArrayDeque<>();
 
     public ClientApplication() {
         console = new ConsoleManager(System.in, System.out);
@@ -58,30 +60,24 @@ public class ClientApplication {
             app.console.printlnErr("Server closed connection. Probably server is offline now.");
         } catch (IOException e) {
             app.console.printlnErr("Error inside main loop");
-            // e.printStackTrace();
         }
         app.stop();
     }
 
-    private Optional<Command> createCommandFromTokens(String[] tokens) throws SubtypeScanError {
-
+    public Optional<Command> createCommandFromTokens(String[] tokens, ConsoleManager console)
+            throws CommandCreationError, SubtypeScanError {
         var factory = this.factories.get(tokens[0]);
         if (factory == null) {
             return Optional.empty();
         }
 
         factory.setConsole(console);
-        return Optional.of(factory.createCommand(tokens));
+        return Optional.ofNullable(factory.createCommand(tokens));
     }
 
-    public Optional<Command> readCommand() {
-        String line = "";
-        try {
-           line = console.nextLine();
-        } catch (ConsoleEmptyException e) {
-            console.printlnErr("Reached EOF");
-        }
-
+    public Optional<Command> readCommand() throws ConsoleEmptyException {
+        String line;
+        line = console.nextLine();
         if (line.isEmpty()) {
             return Optional.empty();
         }
@@ -92,8 +88,8 @@ public class ClientApplication {
 
         Optional<Command> commandOptional;
         try {
-            commandOptional = createCommandFromTokens(tokens);
-        } catch (SubtypeScanError e) {
+            commandOptional = createCommandFromTokens(tokens, console);
+        } catch (SubtypeScanError | CommandCreationError e) {
             return Optional.empty();
         }
         if (commandOptional.isEmpty()) {
@@ -118,24 +114,29 @@ public class ClientApplication {
         handler.handleResult(response);
     }
 
-    public void readCommandToQueue() {
+    public void readCommandToQueue() throws ConsoleEmptyException {
         Optional<Command> command = readCommand();
         command.ifPresent(commandsQueue::add);
     }
 
     public void repl() throws IOException {
         while (true) {
-            if (commandsQueue.isEmpty()) {
-                readCommandToQueue();
-            }
-
-            if (!tcpClient.ensureConnected()) {
+            try {
+                if (commandsQueue.isEmpty()) {
+                    readCommandToQueue();
+                }
+            } catch (ConsoleEmptyException e) {
                 break;
             }
 
             Command command = commandsQueue.peek();
             if (command == null) {
                 continue;
+            }
+
+            // Server Command sending and receiving result
+            if (!tcpClient.ensureConnected()) {
+                break;
             }
             tcpClient.send(command);
             Optional<ExecutionResult> receivedResult = tcpClient.receive();
@@ -159,5 +160,10 @@ public class ClientApplication {
     public void stop() {
         closeConnection();
         System.exit(0);
+    }
+
+    public void addCommandsToQueue(Queue<Command> commands) {
+        // Need to add all commands from script in right order BEFORE all current commands in queue.
+        commands.iterator().forEachRemaining(commandsQueue::push);
     }
 }
