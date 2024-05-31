@@ -105,67 +105,6 @@ public class ServerApplication {
         tcpServer.init();
     }
 
-    private void register(SelectionKey key) {
-        try (var serverSocket = (ServerSocketChannel) key.channel()){
-
-            SocketChannel client = serverSocket.accept();
-            client.configureBlocking(false);
-            client.register(null, SelectionKey.OP_READ);
-            console.println("Accepted a connection from client on address " + client.getLocalAddress());
-        } catch (IOException e) {
-            console.println("Could not accept connection from a client.");
-        }
-    }
-
-    private void answer(SelectionKey key) {
-        try {
-            SocketChannel client = (SocketChannel) key.channel();
-
-            var buf = ByteBuffer.allocate(2048);
-            client.read(buf);
-            buf.flip();
-
-            console.println("Got buffer from client");
-            console.println(buf.toString());
-
-
-            var bis = new ByteArrayInputStream(buf.array());
-            var ois = new ObjectInputStream(bis);
-
-            Command command = (Command) ois.readObject();
-
-            console.println("Deserialized command from buffer " + command.toString());
-
-            ExecutionResult result = response(command);
-
-            console.println("Starting serializing response " + result.toString());
-
-            var bos = new ByteArrayOutputStream();
-            var oos = new ObjectOutputStream(bos);
-
-            oos.writeObject(result);
-            oos.flush();
-            oos.close();
-
-            buf = ByteBuffer.wrap(bos.toByteArray());
-            buf.flip();
-
-            console.println("Serialized response " + buf);
-
-            client.write(buf);
-
-            console.println("Successfully wrote response to channel");
-
-            client.close();
-            console.println("Closed client channel on server side");
-
-        } catch (IOException e) {
-            console.println(e.getMessage());
-        } catch (ClassNotFoundException e) {
-            console.println("Error while deserializing command object.");
-        }
-    }
-
     public void loop() throws IOException {
         while (true) {
             try {
