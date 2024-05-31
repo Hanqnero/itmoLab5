@@ -47,7 +47,7 @@ public class CollectionManager {
         long id;
         id = generateId();
 
-        if (idInCollection(id))
+        if (idInCollection(id).isPresent())
             return Optional.empty();
 
         band.setId(id);
@@ -58,8 +58,29 @@ public class CollectionManager {
         return Optional.of(id);
     }
 
-    public boolean idInCollection(long id) {
-        return collection.stream().anyMatch(e -> e.getId() == id);
+    /**
+     * Try to update existing element in collection.
+     * @param id id of element to be updated.
+     * @param nev new element.
+     * @return Empty optional if update failed, Optional of false if id is not present inside collection, true Optional otherwise.
+     */
+    public Optional<Boolean> update(long id, MusicBand nev) {
+        var old = idInCollection(id);
+        if (old.isEmpty()) return Optional.of(false);
+
+        nev.setId(id);
+        nev.setCreationDate(old.get().getCreationDate());
+
+        collection.remove(old.get());
+        var b = collection.add(nev);
+        if (!b) {
+            return Optional.empty();
+        }
+        return Optional.of(true);
+    }
+
+    public Optional<MusicBand> idInCollection(long id) {
+        return collection.stream().filter(e -> e.getId() == id).findFirst();
     }
 
     public long size() {

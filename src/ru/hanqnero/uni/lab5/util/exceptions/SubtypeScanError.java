@@ -5,4 +5,8 @@ public class SubtypeScanError extends Exception {
         super("Error while scanning subtype `%s`. Got invalid input `%s` while on non-interactive mode"
                 .formatted(string, subtypeName));
     }
+
+    public SubtypeScanError(String message) {
+        super(message);
+    }
 }

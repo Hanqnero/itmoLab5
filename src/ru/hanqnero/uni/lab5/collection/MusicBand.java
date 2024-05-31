@@ -1,18 +1,20 @@
 package ru.hanqnero.uni.lab5.collection;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.function.UnaryOperator;
 
 public class MusicBand implements Comparable<MusicBand> {
     protected Long id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     protected java.time.LocalDateTime creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
 
-    protected String name; //Поле не может быть null, Строка не может быть пустой
-    protected Coordinates coordinates; //Поле не может быть null
-    protected Long numberOfParticipants; //Поле не может быть null, Значение поля должно быть больше 0
-    protected int singlesCount; //Значение поля должно быть больше 0
-    protected java.time.ZonedDateTime establishmentDate; //Поле не может быть null
-    protected MusicGenre genre; //Поле может быть null
-    protected Studio studio; //Поле может быть null
+    protected final String name; //Поле не может быть null, Строка не может быть пустой
+    protected final Coordinates coordinates; //Поле не может быть null
+    protected final Long numberOfParticipants; //Поле не может быть null, Значение поля должно быть больше 0
+    protected final int singlesCount; //Значение поля должно быть больше 0
+    protected final java.time.ZonedDateTime establishmentDate; //Поле не может быть null
+    protected final MusicGenre genre; //Поле может быть null
+    protected final Studio studio; //Поле может быть null
     protected boolean lockCreationDate = false;
 
     //Use Builder pattern
@@ -45,5 +47,19 @@ public class MusicBand implements Comparable<MusicBand> {
     @Override
     public int compareTo(MusicBand o) {
         return this.establishmentDate.compareTo(o.establishmentDate);
+    }
+
+    public LocalDateTime getCreationDate() {
+        return creationDate;
+    }
+
+    @Override
+    public String toString() {
+        return "[%+024d]  ".formatted(id) +
+                "Name: `%16s`  ".formatted(name) +
+                "Members: %6d  ".formatted(numberOfParticipants) +
+                "Singles: %6d  ".formatted(singlesCount) +
+                "Established: %s  ".formatted(establishmentDate.format(DateTimeFormatter.ofPattern("uuuu-MM-dd"))) +
+                "Genre: %12s".formatted(genre);
     }
 }

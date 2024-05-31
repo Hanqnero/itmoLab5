@@ -19,24 +19,14 @@ public class AddExecutor implements CommandExecutor {
         if (!(command instanceof AddCommand add)) {
             throw new WrongExecutorForCommandException(command, this);
         }
-        MusicBandBuilder builder = new MusicBandBuilder(
-                add.name(),
-                add.coordinates(),
-                add.participants(),
-                add.singles(),
-                add.estDate()
-        )
-                .setStudio(add.studio())
-                .setGenre(add.genre());
-
-        var newBand = new MusicBand(builder);
+        var newBand = new MusicBand(add.builder());
 
         switch (add.variant()) {
-            case "MIN" -> {
+            case MIN -> {
                 if (!collectionManager.isMin(newBand))
                     return new AddResult(ExecutionResult.Status.ERROR, 0L);
             }
-            case "MAX" -> {
+            case MAX -> {
                 if (!collectionManager.isMax(newBand))
                     return new AddResult(ExecutionResult.Status.ERROR, 0L);
             }

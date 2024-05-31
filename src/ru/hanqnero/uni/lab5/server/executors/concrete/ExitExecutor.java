@@ -8,8 +8,6 @@ import ru.hanqnero.uni.lab5.server.ServerApplication;
 import ru.hanqnero.uni.lab5.server.executors.CommandExecutor;
 
 public class ExitExecutor implements CommandExecutor {
-    private ServerApplication server;
-
     @Override
     public ExecutionResult execute(Command command) {
         return new ExitResult(ExecutionResult.Status.SUCCESS);
@@ -18,10 +16,5 @@ public class ExitExecutor implements CommandExecutor {
     @Override
     public void setCollection(CollectionManager collection) {
         // Does nothing by design.
-    }
-
-    @Override
-    public void setServer(ServerApplication server) {
-        this.server = server;
     }
 }

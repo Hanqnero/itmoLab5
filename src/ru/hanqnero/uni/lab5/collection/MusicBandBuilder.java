@@ -1,20 +1,20 @@
 package ru.hanqnero.uni.lab5.collection;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
 // Паттерн builder
-public class MusicBandBuilder {
+public class MusicBandBuilder implements Serializable {
     final String name;
     final Coordinates  coords;
     final Long numberOfParticipants;
     final int singlesCount;
     final ZonedDateTime establishmentDate;
 
-    Long id;
-    LocalDateTime creationDate;
     MusicGenre genre;
     Studio studio;
+
     public MusicBandBuilder(
             String name,
             Coordinates coords,
@@ -39,7 +39,31 @@ public class MusicBandBuilder {
         return this;
     }
 
-    public MusicBand build() {
-        return new MusicBand(this);
+    public int getSinglesCount() {
+        return singlesCount;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Coordinates getCoords() {
+        return coords;
+    }
+
+    public Long getNumberOfParticipants() {
+        return numberOfParticipants;
+    }
+
+    public ZonedDateTime getEstablishmentDate() {
+        return establishmentDate;
+    }
+
+    public MusicGenre getGenre() {
+        return genre;
+    }
+
+    public Studio getStudio() {
+        return studio;
     }
 }

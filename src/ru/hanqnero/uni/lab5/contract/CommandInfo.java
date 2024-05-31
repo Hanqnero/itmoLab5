@@ -39,14 +39,17 @@ public enum CommandInfo {
             ShowHandler::new),
     ADD(
             "add",
-            "[--min|--max] {Music Band} - Add element to collection",
+            "--[min|max] {Music Band} - Add element to collection",
             AddFactory::new,
             AddExecutor::new,
             AddResultHandler::new
     ),
-//    UPDATE(
-//            "update",
-//            "<id> {Music Band} - Update element in collection",null,null),
+    UPDATE(
+            "update",
+            "<id> {Music Band} - Update element in collection",
+            UpdateFactory::new,
+            UpdateExecutor::new,
+            UpdateHandler::new),
 //    REMOVE(
 //            "remove",
 //            "<id> - Remove element with matching id from collection",null,null),

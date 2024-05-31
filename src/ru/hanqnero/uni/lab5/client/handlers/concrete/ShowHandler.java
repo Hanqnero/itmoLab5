@@ -22,9 +22,7 @@ public class ShowHandler implements ExecutionResultHandler {
                 console.printlnSuc("%d elements in collection:\n"
                         .formatted(show.elementStrings().size()) + messageBody);
             }
-            case WARNING -> {
-                console.printlnWarn("Collection is empty.");
-            }
+            case WARNING -> console.printlnWarn("Collection is empty.");
         }
     }
 

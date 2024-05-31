@@ -2,8 +2,10 @@ package ru.hanqnero.uni.lab5.util;
 
 import ru.hanqnero.uni.lab5.client.ConsoleManager;
 import ru.hanqnero.uni.lab5.collection.Coordinates;
+import ru.hanqnero.uni.lab5.collection.MusicBandBuilder;
 import ru.hanqnero.uni.lab5.collection.MusicGenre;
 import ru.hanqnero.uni.lab5.collection.Studio;
+import ru.hanqnero.uni.lab5.contract.commands.concrete.AddCommand;
 import ru.hanqnero.uni.lab5.util.exceptions.ConsoleEmptyException;
 import ru.hanqnero.uni.lab5.util.exceptions.SubtypeScanError;
 
@@ -274,5 +276,31 @@ public class MusicBandSubTypeScanner {
         } catch (ConsoleEmptyException e) {
             throw new SubtypeScanError("<EOF reached>", "Name");
         }
+    }
+
+    public MusicBandBuilder scanBandBuilder() throws SubtypeScanError {
+        var scanner = this;
+
+        if (scanner.console == null)
+            throw new SubtypeScanError("Console of band scanner is null");
+
+        String name = scanner.scanName();
+        Coordinates coordinates = scanner.scanCoordinates();
+        Long numberOfParticipants = scanner.scanNumberOfParticipants();
+        int singlesCount = scanner.scanSinglesCount();
+        ZonedDateTime establishmentDate = scanner.scanEstDate();
+
+        Studio studio = scanner.scanStudio();
+        MusicGenre genre = scanner.scanMusicGenre();
+
+        return new MusicBandBuilder(
+                name,
+                coordinates,
+                numberOfParticipants,
+                singlesCount,
+                establishmentDate
+        )
+                .setStudio(studio)
+                .setGenre(genre);
     }
 }

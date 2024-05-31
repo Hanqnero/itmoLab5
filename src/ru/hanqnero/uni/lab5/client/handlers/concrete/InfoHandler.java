@@ -6,6 +6,8 @@ import ru.hanqnero.uni.lab5.contract.results.ExecutionResult;
 import ru.hanqnero.uni.lab5.contract.results.concrete.InfoResult;
 import ru.hanqnero.uni.lab5.util.exceptions.WrongHandlerException;
 
+import java.util.Objects;
+
 public class InfoHandler implements ExecutionResultHandler {
     private ConsoleManager console;
     @Override
@@ -13,15 +15,14 @@ public class InfoHandler implements ExecutionResultHandler {
         if (!(result instanceof InfoResult info)) {
             throw new WrongHandlerException(this, result);
         }
-        switch (info.getStatus()) {
-            case SUCCESS -> console.printlnSuc("""
+        if (Objects.requireNonNull(info.getStatus()) == ExecutionResult.Status.SUCCESS) {
+            console.printlnSuc("""
                     Information about collection:
                     Creation date: %s
                     Size: %d elements
                     """.formatted(info.getCreationDate(), info.getSize()));
-            default -> {
-                assert false : "NOT REACHABLE";
-            }
+        } else {
+            assert false : "NOT REACHABLE";
         }
     }
 

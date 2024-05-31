@@ -16,10 +16,10 @@ import java.util.Iterator;
 import java.util.function.Function;
 
 public class TCPServer {
-    public static String HOSTNAME = "localhost";
-    public static int PORT = 16484;
+    public final static String HOSTNAME = "localhost";
+    public final static int PORT = 16484;
 
-    public static int BUF_SIZE = 4096;
+    public final static int BUF_SIZE = 4096;
     private final ByteBuffer buffer = ByteBuffer.allocate(BUF_SIZE);
 
     private ServerSocketChannel ssc;

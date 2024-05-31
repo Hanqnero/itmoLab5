@@ -7,5 +7,5 @@ import ru.hanqnero.uni.lab5.contract.results.ExecutionResult;
 public interface ExecutionResultHandler {
     void handleResult(ExecutionResult result);
     void setConsole(ConsoleManager console);
-    default void setClient(ClientApplication client) {};
+    default void setClient(ClientApplication client) {}
 }

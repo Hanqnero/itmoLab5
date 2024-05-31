@@ -28,33 +28,20 @@ public class AddFactory implements CommandFactory {
     @Override
     public Command createCommand(String[] tokens) throws SubtypeScanError, CommandCreationError {
 
-        String variant = "NORMAL";
+        AddCommand.Variant variant = AddCommand.Variant.NORMAL;
         if (tokens.length == 2) {
             switch (tokens[1].toLowerCase()) {
-                case "--min" -> variant = "MIN";
-                case "--max" -> variant = "MAX";
+                case "--min" -> variant = AddCommand.Variant.MIN;
+                case "--max" -> variant = AddCommand.Variant.MAX;
                 default -> throw new CommandCreationError();
             }
         } else if (tokens.length != 1) throw new CommandCreationError();
 
-            String name = scanner.scanName();
-            Coordinates coordinates = scanner.scanCoordinates();
-            Long numberOfParticipants = scanner.scanNumberOfParticipants();
-            int singlesCount = scanner.scanSinglesCount();
-            ZonedDateTime establishmentDate = scanner.scanEstDate();
+        var builder = scanner.scanBandBuilder();
 
-            Studio studio = scanner.scanStudio();
-            MusicGenre genre = scanner.scanMusicGenre();
-
-            return new AddCommand(
-                    name,
-                    coordinates,
-                    numberOfParticipants,
-                    singlesCount,
-                    establishmentDate,
-                    studio,
-                    genre,
-                    variant
-            );
+        return new AddCommand(
+                variant,
+                builder
+        );
     }
 }

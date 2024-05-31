@@ -6,7 +6,6 @@ import ru.hanqnero.uni.lab5.contract.results.ExecutionResult;
 import ru.hanqnero.uni.lab5.client.handlers.ExecutionResultHandler;
 
 public class ExitResultHandler implements ExecutionResultHandler {
-    private ConsoleManager console;
     private ClientApplication client;
 
     @Override
@@ -16,8 +15,8 @@ public class ExitResultHandler implements ExecutionResultHandler {
 
     @Override
     public void setConsole(ConsoleManager console) {
-        this.console = console;
     }
+
     public void setClient(ClientApplication client) {
         this.client = client;
     }
