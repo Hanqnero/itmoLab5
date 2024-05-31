@@ -53,9 +53,13 @@ public enum CommandInfo {
 //    REMOVE(
 //            "remove",
 //            "<id> - Remove element with matching id from collection",null,null),
-//    CLEAR(
-//            "clear",
-//            "- Remove all items from the collection",null,null),
+    CLEAR(
+            "clear",
+            "- Remove all items from the collection",
+            ClearFactory::new,
+            ClearExecutor::new,
+            ClearHandler::new),
+
     SCRIPT(
             "execute",
             "<filename> - Execute list of commands from file",

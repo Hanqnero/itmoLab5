@@ -104,4 +104,8 @@ public class CollectionManager {
         return band.compareTo(minElement) < 0;
     }
 
+    public void clear() {
+        collection.clear();
+    }
+
 }
