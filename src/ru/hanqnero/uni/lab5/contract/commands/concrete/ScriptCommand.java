@@ -1,4 +1,4 @@
-package ru.hanqnero.uni.lab5.contract.commands.client;
+package ru.hanqnero.uni.lab5.contract.commands.concrete;
 
 import ru.hanqnero.uni.lab5.contract.CommandInfo;
 import ru.hanqnero.uni.lab5.contract.commands.Command;

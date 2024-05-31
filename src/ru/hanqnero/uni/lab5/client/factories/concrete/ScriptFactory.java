@@ -3,7 +3,7 @@ package ru.hanqnero.uni.lab5.client.factories.concrete;
 import ru.hanqnero.uni.lab5.client.ConsoleManager;
 import ru.hanqnero.uni.lab5.client.factories.CommandFactory;
 import ru.hanqnero.uni.lab5.contract.commands.Command;
-import ru.hanqnero.uni.lab5.contract.commands.client.ScriptCommand;
+import ru.hanqnero.uni.lab5.contract.commands.concrete.ScriptCommand;
 import ru.hanqnero.uni.lab5.util.exceptions.CommandCreationError;
 
 import java.io.File;

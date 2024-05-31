@@ -4,7 +4,7 @@ import ru.hanqnero.uni.lab5.client.ClientApplication;
 import ru.hanqnero.uni.lab5.client.ConsoleManager;
 import ru.hanqnero.uni.lab5.client.handlers.ExecutionResultHandler;
 import ru.hanqnero.uni.lab5.contract.commands.Command;
-import ru.hanqnero.uni.lab5.contract.commands.client.ScriptCommand;
+import ru.hanqnero.uni.lab5.contract.commands.concrete.ScriptCommand;
 import ru.hanqnero.uni.lab5.contract.results.ExecutionResult;
 import ru.hanqnero.uni.lab5.contract.results.concrete.ScriptResult;
 import ru.hanqnero.uni.lab5.util.exceptions.CommandCreationError;

@@ -1,7 +1,7 @@
 package ru.hanqnero.uni.lab5.server.executors.concrete;
 
 import ru.hanqnero.uni.lab5.contract.commands.Command;
-import ru.hanqnero.uni.lab5.contract.commands.client.ScriptCommand;
+import ru.hanqnero.uni.lab5.contract.commands.concrete.ScriptCommand;
 import ru.hanqnero.uni.lab5.contract.results.ExecutionResult;
 import ru.hanqnero.uni.lab5.contract.results.concrete.ScriptResult;
 import ru.hanqnero.uni.lab5.server.CollectionManager;
