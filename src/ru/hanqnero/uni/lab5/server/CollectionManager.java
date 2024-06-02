@@ -1,12 +1,13 @@
 package ru.hanqnero.uni.lab5.server;
 
 import ru.hanqnero.uni.lab5.collection.MusicBand;
+import ru.hanqnero.uni.lab5.collection.Studio;
 import ru.hanqnero.uni.lab5.util.exceptions.DataBaseInitializationError;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
-import java.util.TreeSet;
-import java.util.UUID;
+import java.util.*;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class CollectionManager {
     private TreeSet<MusicBand> collection;
@@ -106,6 +107,25 @@ public class CollectionManager {
 
     public void clear() {
         collection.clear();
+    }
+
+    public long remove(long id) {
+        return collection.removeIf(e -> e.getId().equals(id)) ? 1L : 0L;
+    }
+    public long remove(Studio s) {
+        Collection<MusicBand> match;
+        match = collection.stream().filter(e -> Objects.equals(s, e.getStudio())).collect(Collectors.toUnmodifiableSet());
+        return collection.removeAll(match) ? match.size() : 0L;
+    }
+
+    public long removeIf(Predicate<MusicBand> predicate) {
+        Collection<MusicBand> match;
+        match = collection.stream().filter(predicate).collect(Collectors.toUnmodifiableSet());
+        return collection.removeAll(match) ? match.size() : 0L;
+    }
+
+    public Optional<MusicBand> min(Comparator<MusicBand> comparator) {
+        return collection.stream().min(comparator);
     }
 
 }

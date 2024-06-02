@@ -34,4 +34,11 @@ public class Studio implements Serializable {
     public int hashCode() {
         return Objects.hash(name, address);
     }
+
+    @SuppressWarnings("unused")
+    public boolean equals(Studio o) {
+        if (this == o) return true;
+        if (o == null) return false;
+        return this.address.equalsIgnoreCase(o.address) && this.name.equalsIgnoreCase(o.name);
+    }
 }

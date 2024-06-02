@@ -2,7 +2,6 @@ package ru.hanqnero.uni.lab5.collection;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.function.UnaryOperator;
 
 public class MusicBand implements Comparable<MusicBand> {
     protected Long id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
@@ -53,6 +52,10 @@ public class MusicBand implements Comparable<MusicBand> {
         return creationDate;
     }
 
+    public Studio getStudio() {
+        return studio;
+    }
+
     @Override
     public String toString() {
         return "[%+024d]  ".formatted(id) +
@@ -60,6 +63,7 @@ public class MusicBand implements Comparable<MusicBand> {
                 "Members: %6d  ".formatted(numberOfParticipants) +
                 "Singles: %6d  ".formatted(singlesCount) +
                 "Established: %s  ".formatted(establishmentDate.format(DateTimeFormatter.ofPattern("uuuu-MM-dd"))) +
-                "Genre: %12s".formatted(genre);
+                "Genre: %12s ".formatted(genre) +
+                "at Studio: %16s".formatted(studio);
     }
 }

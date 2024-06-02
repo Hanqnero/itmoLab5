@@ -1,5 +1,6 @@
 package ru.hanqnero.uni.lab5.contract;
 
+import ru.hanqnero.uni.lab5.client.factories.RemoveGreaterFactory;
 import ru.hanqnero.uni.lab5.client.factories.concrete.*;
 import ru.hanqnero.uni.lab5.client.handlers.concrete.*;
 import ru.hanqnero.uni.lab5.server.executors.CommandExecutor;
@@ -50,9 +51,12 @@ public enum CommandInfo {
             UpdateFactory::new,
             UpdateExecutor::new,
             UpdateHandler::new),
-//    REMOVE(
-//            "remove",
-//            "<id> - Remove element with matching id from collection",null,null),
+    REMOVE(
+            "remove",
+            "--[id <id>|--studio {Studio}] - Remove element with matching id from collection",
+            RemoveFactory::new,
+            RemoveExecutor::new,
+            RemoveHandler::new),
     CLEAR(
             "clear",
             "- Remove all items from the collection",
@@ -74,27 +78,20 @@ public enum CommandInfo {
             SaveExecutor::new,
             SaveHandler::new
     ),
-//    REMOVE_GR(
-//            "remove_greater",
-//            "{Music Band} - Remove all elements exceeding this from collection",
-//            null,
-//            null,
-//            null
-//    ),
-//    REMOVE_STUDIO(
-//            "remove_by_studio",
-//            "{Studio} - Remove all elements with matching studio",
-//            null,
-//            null,
-//            null
-//    ),
-//    MAX_BY_EST_DATE(
-//            "max_by_establishment",
-//            "- Display maximum element by establishment date",
-//            null,
-//            null,
-//            null
-//    ),
+    REMOVE_GREATER(
+            "remgr",
+            "{Music Band} - Remove all elements exceeding this from collection",
+            RemoveGreaterFactory::new,
+            RemoveGreaterExecutor::new,
+            RemoveGreaterHandler::new
+    ),
+    GET_BY(
+            "get",
+            "--[min|max] --[creation|establishment]- Display first or last element after chosen sorting",
+            GetByFactory::new,
+            GetByExecutor::new,
+            GetByHandler::new
+    ),
     ;
 
     private final String name;
@@ -134,22 +131,6 @@ public enum CommandInfo {
 
     public String getDescription() {
         return description;
-    }
-
-    public CommandFactory getFactoryForName(String commandName) {
-        var command = Arrays.stream(CommandInfo.values())
-                .filter(c -> c.getName().equals(commandName))
-                .findFirst()
-                .orElseThrow(NoSuchElementException::new);
-        return command.factorySupplier.get();
-    }
-
-    public CommandExecutor getExecutorForName(String commandName) {
-        var command = Arrays.stream(CommandInfo.values())
-                .filter(c -> c.getName().equals(commandName))
-                .findFirst()
-                .orElseThrow(NoSuchElementException::new);
-        return command.executorSupplier.get();
     }
 
     public static Map<String, CommandFactory> createFactoriesView(CommandInfo... commands) {
