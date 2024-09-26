@@ -1,6 +1,7 @@
 package ru.hanqnero.uni.lab5.client.factories.concrete;
 
 import ru.hanqnero.uni.lab5.client.ConsoleManager;
+import ru.hanqnero.uni.lab5.client.factories.AbstractFactory;
 import ru.hanqnero.uni.lab5.client.factories.CommandFactory;
 import ru.hanqnero.uni.lab5.commons.contract.commands.Command;
 import ru.hanqnero.uni.lab5.commons.contract.commands.concrete.UpdateCommand;
@@ -8,12 +9,11 @@ import ru.hanqnero.uni.lab5.commons.util.MusicBandSubTypeScanner;
 import ru.hanqnero.uni.lab5.commons.exceptions.CommandCreationError;
 import ru.hanqnero.uni.lab5.commons.exceptions.SubtypeScanError;
 
-public class UpdateFactory implements CommandFactory {
-    private final MusicBandSubTypeScanner scanner = new MusicBandSubTypeScanner();
+public class UpdateFactory extends AbstractFactory {
+    private final MusicBandSubTypeScanner scanner;
 
-    @Override
-    public void setConsole(ConsoleManager console) {
-        scanner.setConsole(console);
+    public UpdateFactory(ConsoleManager console) {
+        scanner = new MusicBandSubTypeScanner(console);
     }
 
     @Override

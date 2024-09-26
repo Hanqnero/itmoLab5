@@ -1,6 +1,6 @@
 package ru.hanqnero.uni.lab5.commons.util;
 
-import ru.hanqnero.uni.lab5.client.factories.RemoveGreaterFactory;
+import ru.hanqnero.uni.lab5.client.factories.concrete.RemoveGreaterFactory;
 import ru.hanqnero.uni.lab5.client.factories.concrete.*;
 import ru.hanqnero.uni.lab5.client.handlers.concrete.*;
 import ru.hanqnero.uni.lab5.server.executors.CommandExecutor;

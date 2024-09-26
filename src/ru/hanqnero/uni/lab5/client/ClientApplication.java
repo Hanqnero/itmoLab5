@@ -1,6 +1,6 @@
 package ru.hanqnero.uni.lab5.client;
 
-import ru.hanqnero.uni.lab5.client.factories.RemoveGreaterFactory;
+import ru.hanqnero.uni.lab5.client.factories.concrete.RemoveGreaterFactory;
 import ru.hanqnero.uni.lab5.client.factories.concrete.*;
 import ru.hanqnero.uni.lab5.client.handlers.ExecutionResultHandler;
 import ru.hanqnero.uni.lab5.client.handlers.concrete.*;
@@ -58,21 +58,21 @@ public class ClientApplication {
 
         registry.register(
                 "Add",
-                new AddFactory(),
+                new AddFactory(console),
                 new AddResultHandler(),
                 "--[min|max] {Music Band} - Add element to collection"
         );
 
         registry.register(
                 "Update",
-                new UpdateFactory(),
+                new UpdateFactory(console),
                 new UpdateResultHandler(),
                 "<id> {Music Band} - Update element in collection"
         );
 
         registry.register(
                 "Remove",
-                new RemoveFactory(),
+                new RemoveFactory(console),
                 new RemoveResultHandler(),
                 "--[id <id>|--studio {Studio}] - Remove element with matching id from collection"
         );
@@ -93,7 +93,7 @@ public class ClientApplication {
 
         registry.register(
                 "Script",
-                new ScriptFactory(),
+                new ScriptFactory(console),
                 new ScriptResultHandler(),
                 "<filename> - Execute list of commands from file"
         );
@@ -106,15 +106,8 @@ public class ClientApplication {
         );
 
         registry.register(
-                "Save",
-                new SaveFactory(),
-                new SaveResultHandler(),
-                "- Save collection to text file"
-        );
-
-        registry.register(
                 "RemoveGreater",
-                new RemoveGreaterFactory(),
+                new RemoveGreaterFactory(console),
                 new RemoveGreaterResultHandler(),
                 "{Music Band} - Remove all elements exceeding this from collection"
         );

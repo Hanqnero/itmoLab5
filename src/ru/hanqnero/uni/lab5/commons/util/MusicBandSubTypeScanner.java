@@ -14,9 +14,9 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 public class MusicBandSubTypeScanner {
-    private ConsoleManager console;
+    private final ConsoleManager console;
 
-    public void setConsole(ConsoleManager console) {
+    public MusicBandSubTypeScanner(ConsoleManager console) {
         this.console = console;
     }
 
