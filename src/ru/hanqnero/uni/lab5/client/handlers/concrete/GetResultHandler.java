@@ -6,7 +6,7 @@ import ru.hanqnero.uni.lab5.commons.contract.results.ExecutionResult;
 import ru.hanqnero.uni.lab5.commons.contract.results.concrete.GetByResult;
 import ru.hanqnero.uni.lab5.commons.exceptions.WrongHandlerException;
 
-public class GetByHandler implements ExecutionResultHandler {
+public class GetResultHandler implements ExecutionResultHandler {
     private ConsoleManager console;
 
     @Override

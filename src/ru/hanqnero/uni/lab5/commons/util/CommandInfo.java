@@ -88,9 +88,9 @@ public enum CommandInfo {
     GET_BY(
             "get",
             "--[min|max] --[creation|establishment]- Display first or last element after chosen sorting",
-            GetByFactory::new,
+            GetFactory::new,
             GetByExecutor::new,
-            GetByHandler::new
+            GetResultHandler::new
     ),
     ;
 

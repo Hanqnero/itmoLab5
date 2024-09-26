@@ -6,7 +6,7 @@ import ru.hanqnero.uni.lab5.commons.contract.commands.concrete.GetByDate;
 import ru.hanqnero.uni.lab5.commons.exceptions.CommandCreationError;
 import ru.hanqnero.uni.lab5.commons.exceptions.SubtypeScanError;
 
-public class GetByFactory implements CommandFactory {
+public class GetFactory implements CommandFactory {
     @Override
     public Command createCommand(String[] tokens) throws SubtypeScanError, CommandCreationError {
         if (tokens.length == 1)

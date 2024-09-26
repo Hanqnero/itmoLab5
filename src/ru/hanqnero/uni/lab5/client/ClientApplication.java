@@ -5,7 +5,6 @@ import ru.hanqnero.uni.lab5.client.factories.concrete.*;
 import ru.hanqnero.uni.lab5.client.handlers.ExecutionResultHandler;
 import ru.hanqnero.uni.lab5.client.handlers.concrete.*;
 import ru.hanqnero.uni.lab5.commons.contract.commands.Command;
-import ru.hanqnero.uni.lab5.commons.contract.commands.concrete.*;
 import ru.hanqnero.uni.lab5.commons.contract.results.ExecutionResult;
 import ru.hanqnero.uni.lab5.commons.exceptions.CommandCreationError;
 import ru.hanqnero.uni.lab5.commons.exceptions.ConsoleEmptyException;
@@ -30,7 +29,6 @@ public class ClientApplication {
 
         // Add commands to registry
         registry.register(
-                HelpCommand.class,
                 "Help",
                 new HelpFactory(),
                 new HelpResultHandler(),
@@ -38,7 +36,6 @@ public class ClientApplication {
         );
 
         registry.register(
-                ExitCommand.class,
                 "Exit",
                 new ExitFactory(),
                 new ExitResultHandler(),
@@ -46,7 +43,6 @@ public class ClientApplication {
         );
 
         registry.register(
-                InfoCommand.class,
                 "Info",
                 new InfoFactory(),
                 new InfoResultHandler(),
@@ -54,7 +50,6 @@ public class ClientApplication {
         );
 
         registry.register(
-                ShowCommand.class,
                 "Show",
                 new ShowFactory(),
                 new ShowResultHandler(),
@@ -62,7 +57,6 @@ public class ClientApplication {
         );
 
         registry.register(
-                AddCommand.class,
                 "Add",
                 new AddFactory(),
                 new AddResultHandler(),
@@ -70,7 +64,6 @@ public class ClientApplication {
         );
 
         registry.register(
-                UpdateCommand.class,
                 "Update",
                 new UpdateFactory(),
                 new UpdateResultHandler(),
@@ -78,7 +71,6 @@ public class ClientApplication {
         );
 
         registry.register(
-                RemoveCommand.class,
                 "Remove",
                 new RemoveFactory(),
                 new RemoveResultHandler(),
@@ -86,7 +78,6 @@ public class ClientApplication {
         );
 
         registry.register(
-                ClearCommand.class,
                 "Clear",
                 new ClearFactory(),
                 new ClearResultHandler(),
@@ -94,7 +85,6 @@ public class ClientApplication {
         );
 
         registry.register(
-                ClearCommand.class,
                 "Clear",
                 new ClearFactory(),
                 new ClearResultHandler(),
@@ -102,7 +92,6 @@ public class ClientApplication {
         );
 
         registry.register(
-                ScriptCommand.class,
                 "Script",
                 new ScriptFactory(),
                 new ScriptResultHandler(),
@@ -110,7 +99,6 @@ public class ClientApplication {
         );
 
         registry.register(
-                SaveCommand.class,
                 "Save",
                 new SaveFactory(),
                 new SaveResultHandler(),
@@ -118,7 +106,6 @@ public class ClientApplication {
         );
 
         registry.register(
-                SaveCommand.class,
                 "Save",
                 new SaveFactory(),
                 new SaveResultHandler(),
@@ -126,7 +113,6 @@ public class ClientApplication {
         );
 
         registry.register(
-                RemoveGreaterCommand.class,
                 "RemoveGreater",
                 new RemoveGreaterFactory(),
                 new RemoveGreaterResultHandler(),
@@ -134,7 +120,6 @@ public class ClientApplication {
         );
 
         registry.register(
-                GetCommand.class,
                 "Get",
                 new GetFactory(),
                 new GetResultHandler(),
@@ -179,13 +164,11 @@ public class ClientApplication {
 
     public Optional<Command> createCommandFromTokens(String[] tokens, ConsoleManager console)
             throws CommandCreationError, SubtypeScanError {
-        var factory = this.factories.get(tokens[0]);
-        if (factory == null) {
+        var entry = registry.findEntry(tokens[0]);
+        if (entry.isEmpty())
             return Optional.empty();
-        }
-
-        factory.setConsole(console);
-        return Optional.ofNullable(factory.createCommand(tokens));
+        var factory = entry.get().commandFactory();
+        return Optional.of(factory.createCommand(tokens));
     }
 
     public Optional<Command> readCommand() throws ConsoleEmptyException {
