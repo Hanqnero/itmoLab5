@@ -2,10 +2,10 @@ package ru.hanqnero.uni.lab5.client.handlers.concrete;
 
 import ru.hanqnero.uni.lab5.client.ConsoleManager;
 import ru.hanqnero.uni.lab5.client.handlers.ExecutionResultHandler;
-import ru.hanqnero.uni.lab5.commons.CommandInfo;
-import ru.hanqnero.uni.lab5.commons.results.ExecutionResult;
-import ru.hanqnero.uni.lab5.commons.results.concrete.HelpResult;
-import ru.hanqnero.uni.lab5.commons.util.exceptions.WrongHandlerException;
+import ru.hanqnero.uni.lab5.commons.util.CommandInfo;
+import ru.hanqnero.uni.lab5.commons.contract.results.ExecutionResult;
+import ru.hanqnero.uni.lab5.commons.contract.results.concrete.HelpResult;
+import ru.hanqnero.uni.lab5.commons.exceptions.WrongHandlerException;
 
 public class HelpResultHandler implements ExecutionResultHandler {
     private ConsoleManager console;

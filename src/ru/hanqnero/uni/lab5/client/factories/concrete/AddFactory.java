@@ -2,11 +2,11 @@ package ru.hanqnero.uni.lab5.client.factories.concrete;
 
 import ru.hanqnero.uni.lab5.client.ConsoleManager;
 import ru.hanqnero.uni.lab5.client.factories.CommandFactory;
-import ru.hanqnero.uni.lab5.commons.commands.Command;
-import ru.hanqnero.uni.lab5.commons.commands.concrete.AddCommand;
+import ru.hanqnero.uni.lab5.commons.contract.commands.Command;
+import ru.hanqnero.uni.lab5.commons.contract.commands.concrete.AddCommand;
 import ru.hanqnero.uni.lab5.commons.util.MusicBandSubTypeScanner;
-import ru.hanqnero.uni.lab5.commons.util.exceptions.CommandCreationError;
-import ru.hanqnero.uni.lab5.commons.util.exceptions.SubtypeScanError;
+import ru.hanqnero.uni.lab5.commons.exceptions.CommandCreationError;
+import ru.hanqnero.uni.lab5.commons.exceptions.SubtypeScanError;
 
 public class AddFactory implements CommandFactory {
     private final MusicBandSubTypeScanner scanner;

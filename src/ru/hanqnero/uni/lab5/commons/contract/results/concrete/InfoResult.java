@@ -1,0 +1,34 @@
+package ru.hanqnero.uni.lab5.commons.contract.results.concrete;
+
+import ru.hanqnero.uni.lab5.commons.util.CommandInfo;
+import ru.hanqnero.uni.lab5.commons.contract.results.ExecutionResult;
+
+import java.time.LocalDateTime;
+
+public class InfoResult implements ExecutionResult {
+    private final Status status;
+    private final long size;
+    private final LocalDateTime creationDate;
+    public InfoResult(Status status, long size, LocalDateTime creationDate) {
+        this.status = status;
+        this.size = size;
+        this.creationDate = creationDate;
+    }
+    @Override
+    public Status getStatus() {
+        return status;
+    }
+
+    public long getSize() {
+        return size;
+    }
+
+    public LocalDateTime getCreationDate() {
+        return creationDate;
+    }
+
+    @Override
+    public String getCommandName() {
+        return CommandInfo.INFO.getName();
+    }
+}

@@ -3,12 +3,12 @@ package ru.hanqnero.uni.lab5.client.factories.concrete;
 import ru.hanqnero.uni.lab5.client.ConsoleManager;
 import ru.hanqnero.uni.lab5.client.factories.CommandFactory;
 import ru.hanqnero.uni.lab5.commons.collection.Studio;
-import ru.hanqnero.uni.lab5.commons.commands.Command;
-import ru.hanqnero.uni.lab5.commons.commands.concrete.RemoveId;
-import ru.hanqnero.uni.lab5.commons.commands.concrete.RemoveStudio;
+import ru.hanqnero.uni.lab5.commons.contract.commands.Command;
+import ru.hanqnero.uni.lab5.commons.contract.commands.concrete.RemoveCommand;
+import ru.hanqnero.uni.lab5.commons.contract.commands.concrete.RemoveStudio;
 import ru.hanqnero.uni.lab5.commons.util.MusicBandSubTypeScanner;
-import ru.hanqnero.uni.lab5.commons.util.exceptions.CommandCreationError;
-import ru.hanqnero.uni.lab5.commons.util.exceptions.SubtypeScanError;
+import ru.hanqnero.uni.lab5.commons.exceptions.CommandCreationError;
+import ru.hanqnero.uni.lab5.commons.exceptions.SubtypeScanError;
 
 public class RemoveFactory implements CommandFactory {
     private final MusicBandSubTypeScanner scanner = new MusicBandSubTypeScanner();
@@ -33,7 +33,7 @@ public class RemoveFactory implements CommandFactory {
                 throw new CommandCreationError("Not enough arguments");
             }
 
-            return new RemoveId(id);
+            return new RemoveCommand(id);
         }
 
         if (tokens[1].equalsIgnoreCase("--studio")) {

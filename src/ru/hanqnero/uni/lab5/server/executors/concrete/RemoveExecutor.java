@@ -1,21 +1,21 @@
 package ru.hanqnero.uni.lab5.server.executors.concrete;
 
-import ru.hanqnero.uni.lab5.commons.commands.Command;
-import ru.hanqnero.uni.lab5.commons.commands.concrete.RemoveId;
-import ru.hanqnero.uni.lab5.commons.commands.concrete.RemoveStudio;
-import ru.hanqnero.uni.lab5.commons.results.ExecutionResult;
-import ru.hanqnero.uni.lab5.commons.results.concrete.RemoveResult;
-import ru.hanqnero.uni.lab5.commons.results.concrete.UpdateResult;
+import ru.hanqnero.uni.lab5.commons.contract.commands.Command;
+import ru.hanqnero.uni.lab5.commons.contract.commands.concrete.RemoveCommand;
+import ru.hanqnero.uni.lab5.commons.contract.commands.concrete.RemoveStudio;
+import ru.hanqnero.uni.lab5.commons.contract.results.ExecutionResult;
+import ru.hanqnero.uni.lab5.commons.contract.results.concrete.RemoveResult;
+import ru.hanqnero.uni.lab5.commons.contract.results.concrete.UpdateResult;
 import ru.hanqnero.uni.lab5.server.CollectionManager;
 import ru.hanqnero.uni.lab5.server.executors.CommandExecutor;
-import ru.hanqnero.uni.lab5.commons.util.exceptions.WrongExecutorForCommandException;
+import ru.hanqnero.uni.lab5.commons.exceptions.WrongExecutorForCommandException;
 
 public class RemoveExecutor implements CommandExecutor {
     private CollectionManager collection;
     @Override
     public ExecutionResult execute(Command command) {
         long status = -1L;
-        if (command instanceof RemoveId remove) {
+        if (command instanceof RemoveCommand remove) {
             status = collection.remove(remove.id());
         }
         if (command instanceof RemoveStudio remove) {

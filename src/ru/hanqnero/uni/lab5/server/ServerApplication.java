@@ -1,8 +1,8 @@
 package ru.hanqnero.uni.lab5.server;
 
-import ru.hanqnero.uni.lab5.commons.CommandInfo;
-import ru.hanqnero.uni.lab5.commons.commands.Command;
-import ru.hanqnero.uni.lab5.commons.results.ExecutionResult;
+import ru.hanqnero.uni.lab5.commons.util.CommandInfo;
+import ru.hanqnero.uni.lab5.commons.contract.commands.Command;
+import ru.hanqnero.uni.lab5.commons.contract.results.ExecutionResult;
 import ru.hanqnero.uni.lab5.server.console.ServerCommands;
 import ru.hanqnero.uni.lab5.server.console.ServerConsole;
 import ru.hanqnero.uni.lab5.server.executors.CommandExecutor;

@@ -5,8 +5,8 @@ import ru.hanqnero.uni.lab5.commons.collection.Coordinates;
 import ru.hanqnero.uni.lab5.commons.collection.MusicBandBuilder;
 import ru.hanqnero.uni.lab5.commons.collection.MusicGenre;
 import ru.hanqnero.uni.lab5.commons.collection.Studio;
-import ru.hanqnero.uni.lab5.commons.util.exceptions.ConsoleEmptyException;
-import ru.hanqnero.uni.lab5.commons.util.exceptions.SubtypeScanError;
+import ru.hanqnero.uni.lab5.commons.exceptions.ConsoleEmptyException;
+import ru.hanqnero.uni.lab5.commons.exceptions.SubtypeScanError;
 
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeParseException;

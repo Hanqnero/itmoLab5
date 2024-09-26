@@ -2,11 +2,11 @@ package ru.hanqnero.uni.lab5.client.factories.concrete;
 
 import ru.hanqnero.uni.lab5.client.ConsoleManager;
 import ru.hanqnero.uni.lab5.client.factories.CommandFactory;
-import ru.hanqnero.uni.lab5.commons.commands.Command;
-import ru.hanqnero.uni.lab5.commons.commands.concrete.Update;
+import ru.hanqnero.uni.lab5.commons.contract.commands.Command;
+import ru.hanqnero.uni.lab5.commons.contract.commands.concrete.UpdateCommand;
 import ru.hanqnero.uni.lab5.commons.util.MusicBandSubTypeScanner;
-import ru.hanqnero.uni.lab5.commons.util.exceptions.CommandCreationError;
-import ru.hanqnero.uni.lab5.commons.util.exceptions.SubtypeScanError;
+import ru.hanqnero.uni.lab5.commons.exceptions.CommandCreationError;
+import ru.hanqnero.uni.lab5.commons.exceptions.SubtypeScanError;
 
 public class UpdateFactory implements CommandFactory {
     private final MusicBandSubTypeScanner scanner = new MusicBandSubTypeScanner();
@@ -29,6 +29,6 @@ public class UpdateFactory implements CommandFactory {
         }
         var builder = scanner.scanBandBuilder();
 
-        return new Update(id, builder);
+        return new UpdateCommand(id, builder);
     }
 }

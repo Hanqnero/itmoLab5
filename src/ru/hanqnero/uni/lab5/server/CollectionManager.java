@@ -2,7 +2,7 @@ package ru.hanqnero.uni.lab5.server;
 
 import ru.hanqnero.uni.lab5.commons.collection.MusicBand;
 import ru.hanqnero.uni.lab5.commons.collection.Studio;
-import ru.hanqnero.uni.lab5.commons.util.exceptions.DataBaseInitializationError;
+import ru.hanqnero.uni.lab5.commons.exceptions.DataBaseInitializationError;
 
 import java.time.LocalDateTime;
 import java.util.*;

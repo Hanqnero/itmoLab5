@@ -1,7 +1,7 @@
 package ru.hanqnero.uni.lab5.client;
 
-import ru.hanqnero.uni.lab5.commons.commands.Command;
-import ru.hanqnero.uni.lab5.commons.results.ExecutionResult;
+import ru.hanqnero.uni.lab5.commons.contract.commands.Command;
+import ru.hanqnero.uni.lab5.commons.contract.results.ExecutionResult;
 import ru.hanqnero.uni.lab5.server.TCPServer;
 import ru.hanqnero.uni.lab5.commons.util.Serializer;
 
