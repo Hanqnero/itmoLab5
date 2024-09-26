@@ -1,13 +1,15 @@
 package ru.hanqnero.uni.lab5.client;
 
-import ru.hanqnero.uni.lab5.client.factories.CommandFactory;
+import ru.hanqnero.uni.lab5.client.factories.RemoveGreaterFactory;
+import ru.hanqnero.uni.lab5.client.factories.concrete.*;
 import ru.hanqnero.uni.lab5.client.handlers.ExecutionResultHandler;
-import ru.hanqnero.uni.lab5.commons.CommandInfo;
-import ru.hanqnero.uni.lab5.commons.commands.Command;
-import ru.hanqnero.uni.lab5.commons.results.ExecutionResult;
-import ru.hanqnero.uni.lab5.commons.util.exceptions.CommandCreationError;
-import ru.hanqnero.uni.lab5.commons.util.exceptions.ConsoleEmptyException;
-import ru.hanqnero.uni.lab5.commons.util.exceptions.SubtypeScanError;
+import ru.hanqnero.uni.lab5.client.handlers.concrete.*;
+import ru.hanqnero.uni.lab5.commons.contract.commands.Command;
+import ru.hanqnero.uni.lab5.commons.contract.commands.concrete.*;
+import ru.hanqnero.uni.lab5.commons.contract.results.ExecutionResult;
+import ru.hanqnero.uni.lab5.commons.exceptions.CommandCreationError;
+import ru.hanqnero.uni.lab5.commons.exceptions.ConsoleEmptyException;
+import ru.hanqnero.uni.lab5.commons.exceptions.SubtypeScanError;
 
 import java.io.IOException;
 import java.nio.channels.ClosedChannelException;
@@ -16,8 +18,8 @@ import java.util.*;
 public class ClientApplication {
     public static final boolean DEBUG = true;
     private final ConsoleManager console;
-    private final Map<String, CommandFactory> factories;
-    private final Map<String, ExecutionResultHandler> handlers;
+
+    private final CommandRegistry registry = new CommandRegistry();
 
     private TCPClient tcpClient;
 
@@ -25,8 +27,119 @@ public class ClientApplication {
 
     public ClientApplication() {
         console = new ConsoleManager(System.in, System.out);
-        this.factories = CommandInfo.createFactoriesView();
-        this.handlers = CommandInfo.createHandlersView();
+
+        // Add commands to registry
+        registry.register(
+                HelpCommand.class,
+                "Help",
+                new HelpFactory(),
+                new HelpResultHandler(),
+                "- Display list of commands"
+        );
+
+        registry.register(
+                ExitCommand.class,
+                "Exit",
+                new ExitFactory(),
+                new ExitResultHandler(),
+                "- Stop client without saving any changes"
+        );
+
+        registry.register(
+                InfoCommand.class,
+                "Info",
+                new InfoFactory(),
+                new InfoResultHandler(),
+                "- Display information about collection"
+        );
+
+        registry.register(
+                ShowCommand.class,
+                "Show",
+                new ShowFactory(),
+                new ShowResultHandler(),
+                "- Display list of every collection item"
+        );
+
+        registry.register(
+                AddCommand.class,
+                "Add",
+                new AddFactory(),
+                new AddResultHandler(),
+                "--[min|max] {Music Band} - Add element to collection"
+        );
+
+        registry.register(
+                UpdateCommand.class,
+                "Update",
+                new UpdateFactory(),
+                new UpdateResultHandler(),
+                "<id> {Music Band} - Update element in collection"
+        );
+
+        registry.register(
+                RemoveCommand.class,
+                "Remove",
+                new RemoveFactory(),
+                new RemoveResultHandler(),
+                "--[id <id>|--studio {Studio}] - Remove element with matching id from collection"
+        );
+
+        registry.register(
+                ClearCommand.class,
+                "Clear",
+                new ClearFactory(),
+                new ClearResultHandler(),
+                "- Remove all items from the collection"
+        );
+
+        registry.register(
+                ClearCommand.class,
+                "Clear",
+                new ClearFactory(),
+                new ClearResultHandler(),
+                "- Remove all items from the collection"
+        );
+
+        registry.register(
+                ScriptCommand.class,
+                "Script",
+                new ScriptFactory(),
+                new ScriptResultHandler(),
+                "<filename> - Execute list of commands from file"
+        );
+
+        registry.register(
+                SaveCommand.class,
+                "Save",
+                new SaveFactory(),
+                new SaveResultHandler(),
+                "- Save collection to text file"
+        );
+
+        registry.register(
+                SaveCommand.class,
+                "Save",
+                new SaveFactory(),
+                new SaveResultHandler(),
+                "- Save collection to text file"
+        );
+
+        registry.register(
+                RemoveGreaterCommand.class,
+                "RemoveGreater",
+                new RemoveGreaterFactory(),
+                new RemoveGreaterResultHandler(),
+                "{Music Band} - Remove all elements exceeding this from collection"
+        );
+
+        registry.register(
+                GetCommand.class,
+                "Get",
+                new GetFactory(),
+                new GetResultHandler(),
+                "--[min|max] --[creation|establishment]- Display first or last element after chosen sorting"
+        );
     }
 
     public void initTCPClient() {
