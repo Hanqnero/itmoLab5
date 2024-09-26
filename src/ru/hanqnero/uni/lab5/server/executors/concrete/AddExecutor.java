@@ -5,14 +5,19 @@ import ru.hanqnero.uni.lab5.commons.contract.commands.Command;
 import ru.hanqnero.uni.lab5.commons.contract.commands.concrete.AddCommand;
 import ru.hanqnero.uni.lab5.commons.contract.results.ExecutionResult;
 import ru.hanqnero.uni.lab5.commons.contract.results.concrete.AddResult;
-import ru.hanqnero.uni.lab5.server.CollectionManager;
-import ru.hanqnero.uni.lab5.server.executors.CommandExecutor;
 import ru.hanqnero.uni.lab5.commons.exceptions.WrongExecutorForCommandException;
+import ru.hanqnero.uni.lab5.server.CollectionManager;
+import ru.hanqnero.uni.lab5.server.executors.AbstractCommandExecutor;
 
 import java.util.Optional;
 
-public class AddExecutor implements CommandExecutor {
+public class AddExecutor extends AbstractCommandExecutor {
     private CollectionManager collectionManager;
+
+    public AddExecutor(CollectionManager collectionManager) {
+        super(collectionManager);
+    }
+
     @Override
     public ExecutionResult execute(Command command) {
         if (!(command instanceof AddCommand add)) {
@@ -35,10 +40,5 @@ public class AddExecutor implements CommandExecutor {
             return newId.map(
                             aLong -> new AddResult(ExecutionResult.Status.SUCCESS, aLong))
                     .orElseGet(() -> new AddResult(ExecutionResult.Status.ERROR, 0L));
-    }
-
-    @Override
-    public void setCollection(CollectionManager collection) {
-        collectionManager = collection;
     }
 }

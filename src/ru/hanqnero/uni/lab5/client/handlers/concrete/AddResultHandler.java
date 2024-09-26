@@ -19,7 +19,7 @@ public class AddResultHandler extends AbstractExecutionResultHandler {
             throw new WrongHandlerException(this, result);
         }
         switch (add.getStatus()) {
-            case SUCCESS -> getConsole().printlnSuc("Successfully added element to collection with id: %d".formatted(add.getId()));
+            case SUCCESS -> getConsole().printlnSuc("Successfully added element to collection with id: %d".formatted(add.newId()));
             case ERROR -> getConsole().printlnErr("Could not add element to collection");
         }
     }

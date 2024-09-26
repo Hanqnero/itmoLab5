@@ -6,20 +6,23 @@ import ru.hanqnero.uni.lab5.commons.contract.commands.concrete.RemoveStudio;
 import ru.hanqnero.uni.lab5.commons.contract.results.ExecutionResult;
 import ru.hanqnero.uni.lab5.commons.contract.results.concrete.RemoveResult;
 import ru.hanqnero.uni.lab5.commons.contract.results.concrete.UpdateResult;
-import ru.hanqnero.uni.lab5.server.CollectionManager;
-import ru.hanqnero.uni.lab5.server.executors.CommandExecutor;
 import ru.hanqnero.uni.lab5.commons.exceptions.WrongExecutorForCommandException;
+import ru.hanqnero.uni.lab5.server.CollectionManager;
+import ru.hanqnero.uni.lab5.server.executors.AbstractCommandExecutor;
 
-public class RemoveExecutor implements CommandExecutor {
-    private CollectionManager collection;
+public class RemoveExecutor extends AbstractCommandExecutor {
+    public RemoveExecutor(CollectionManager collectionManager) {
+        super(collectionManager);
+    }
+
     @Override
     public ExecutionResult execute(Command command) {
         long status = -1L;
         if (command instanceof RemoveCommand remove) {
-            status = collection.remove(remove.id());
+            status = getCollection().remove(remove.id());
         }
         if (command instanceof RemoveStudio remove) {
-            status = collection.remove(remove.studio());
+            status = getCollection().remove(remove.studio());
         }
         if (status == -1L) {
             throw new WrongExecutorForCommandException(command, this);
@@ -28,10 +31,5 @@ public class RemoveExecutor implements CommandExecutor {
             return new RemoveResult(ExecutionResult.Status.WARNING, 0L);
         }
         return new UpdateResult(ExecutionResult.Status.SUCCESS, status);
-    }
-
-    @Override
-    public void setCollection(CollectionManager collection) {
-        this.collection = collection;
     }
 }

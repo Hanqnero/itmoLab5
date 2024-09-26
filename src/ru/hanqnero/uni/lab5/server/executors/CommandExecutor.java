@@ -7,8 +7,4 @@ import ru.hanqnero.uni.lab5.server.ServerApplication;
 
 public interface CommandExecutor {
     ExecutionResult execute(Command command);
-    void setCollection(CollectionManager collection);
-    default void setServer(ServerApplication server) {
-        // Does nothing.
-    }
 }

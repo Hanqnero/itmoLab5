@@ -4,24 +4,20 @@ import ru.hanqnero.uni.lab5.commons.contract.commands.Command;
 import ru.hanqnero.uni.lab5.commons.contract.results.ExecutionResult;
 import ru.hanqnero.uni.lab5.commons.contract.results.concrete.InfoResult;
 import ru.hanqnero.uni.lab5.server.CollectionManager;
-import ru.hanqnero.uni.lab5.server.executors.CommandExecutor;
+import ru.hanqnero.uni.lab5.server.executors.AbstractCommandExecutor;
 
 import java.time.LocalDateTime;
 
-public class InfoExecutor implements CommandExecutor {
-    private CollectionManager collection;
+public class InfoExecutor extends AbstractCommandExecutor {
+    public InfoExecutor(CollectionManager collectionManager) {
+        super(collectionManager);
+    }
     @Override
     public ExecutionResult execute(Command command) {
 
-        long collectionSize = collection.size();
-        LocalDateTime creationTime = collection.getCreationTime();
+        long collectionSize = getCollection().size();
+        LocalDateTime creationTime = getCollection().getCreationTime();
 
         return new InfoResult(ExecutionResult.Status.SUCCESS, collectionSize, creationTime);
     }
-
-    @Override
-    public void setCollection(CollectionManager collection) {
-        this.collection = collection;
-    }
-
 }

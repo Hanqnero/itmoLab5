@@ -1,19 +1,20 @@
 package ru.hanqnero.uni.lab5.server;
 
-import ru.hanqnero.uni.lab5.commons.util.CommandInfo;
 import ru.hanqnero.uni.lab5.commons.contract.commands.Command;
+import ru.hanqnero.uni.lab5.commons.contract.commands.concrete.*;
 import ru.hanqnero.uni.lab5.commons.contract.results.ExecutionResult;
 import ru.hanqnero.uni.lab5.server.console.ServerCommands;
 import ru.hanqnero.uni.lab5.server.console.ServerConsole;
 import ru.hanqnero.uni.lab5.server.executors.CommandExecutor;
+import ru.hanqnero.uni.lab5.server.executors.concrete.*;
 
-import java.io.*;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
 public class ServerApplication {
-    private final CommandInfo[] availableCommandInfo;
-    private final Map<String, CommandExecutor> executors;
+    private final Map<Class<? extends Command>, CommandExecutor> executors = new HashMap<>();
     private final ServerConsole console;
     private final Map<String, Consumer<ServerApplication>> serverCommands;
     private CollectionManager collection;
@@ -21,10 +22,21 @@ public class ServerApplication {
     private final TCPServer tcpServer = new TCPServer();
 
     public ServerApplication() {
-        availableCommandInfo = CommandInfo.values();
-        executors = CommandInfo.createExecutorsView(availableCommandInfo);
         console = new ServerConsole(System.in, System.out);
         serverCommands = ServerCommands.getAllCommands();
+        executors.put(AddCommand.class, new AddExecutor(collection));
+        executors.put(ClearCommand.class, new ClearExecutor(collection));
+        executors.put(ExitCommand.class, new ExitExecutor());
+        executors.put(GetByDateCommand.class, new GetByDateExecutor(collection));
+        executors.put(HelpCommand.class, new HelpExecutor());
+        executors.put(InfoCommand.class, new InfoExecutor(collection));
+        executors.put(RemoveCommand.class, new RemoveExecutor(collection));
+        executors.put(RemoveStudio.class, new RemoveExecutor(collection));
+        executors.put(RemoveGreaterCommand.class, new RemoveGreaterExecutor(collection));
+        executors.put(SaveCommand.class, new SaveExecutor(collection));
+        executors.put(ScriptCommand.class, new ScriptExecutor());
+        executors.put(ShowCommand.class, new ShowExecutor(collection));
+        executors.put(UpdateCommand.class, new UpdateExecutor(collection));
     }
 
     public static void main(String[] args) {
@@ -48,24 +60,16 @@ public class ServerApplication {
         var collection = new CollectionManager();
         this.collection = collection;
         collection.initialize("TEST_VAR");
-        executors.values().forEach(e -> {
-            e.setCollection(collection);
-            e.setServer(this);
-        });
         console.println("Collection initialized");
     }
 
     public ExecutionResult response(Command command) {
-        var executor = this.executors.get(command.getName());
+        var executor = this.executors.get(command.getClass());
 
         if (executor == null) {
             return null;
         }
         return executor.execute(command);
-    }
-
-    public CommandInfo[] getAvailableCommandInfo() {
-        return availableCommandInfo;
     }
 
     public CollectionManager getCollection() {

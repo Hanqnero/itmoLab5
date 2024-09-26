@@ -4,11 +4,10 @@ import ru.hanqnero.uni.lab5.commons.contract.commands.Command;
 import ru.hanqnero.uni.lab5.commons.contract.commands.concrete.ScriptCommand;
 import ru.hanqnero.uni.lab5.commons.contract.results.ExecutionResult;
 import ru.hanqnero.uni.lab5.commons.contract.results.concrete.ScriptResult;
-import ru.hanqnero.uni.lab5.server.CollectionManager;
-import ru.hanqnero.uni.lab5.server.executors.CommandExecutor;
 import ru.hanqnero.uni.lab5.commons.exceptions.WrongExecutorForCommandException;
+import ru.hanqnero.uni.lab5.server.executors.AbstractCommandExecutor;
 
-public class ScriptExecutor implements CommandExecutor {
+public class ScriptExecutor extends AbstractCommandExecutor {
 
     @Override
     public ExecutionResult execute(Command command) {
@@ -16,10 +15,5 @@ public class ScriptExecutor implements CommandExecutor {
             throw new WrongExecutorForCommandException(command, this);
 
         return new ScriptResult(ExecutionResult.Status.SUCCESS, scriptCommand.filename(), scriptCommand.isScriptEnd());
-    }
-
-    @Override
-    public void setCollection(CollectionManager collection) {
-
     }
 }

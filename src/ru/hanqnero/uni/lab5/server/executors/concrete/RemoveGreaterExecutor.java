@@ -5,13 +5,14 @@ import ru.hanqnero.uni.lab5.commons.contract.commands.Command;
 import ru.hanqnero.uni.lab5.commons.contract.commands.concrete.RemoveGreaterCommand;
 import ru.hanqnero.uni.lab5.commons.contract.results.ExecutionResult;
 import ru.hanqnero.uni.lab5.commons.contract.results.concrete.RemoveGreaterResult;
-import ru.hanqnero.uni.lab5.server.CollectionManager;
-import ru.hanqnero.uni.lab5.server.executors.CommandExecutor;
 import ru.hanqnero.uni.lab5.commons.exceptions.WrongExecutorForCommandException;
+import ru.hanqnero.uni.lab5.server.CollectionManager;
+import ru.hanqnero.uni.lab5.server.executors.AbstractCommandExecutor;
 
-public class RemoveGreaterExecutor implements CommandExecutor {
-    private CollectionManager collection;
-
+public class RemoveGreaterExecutor extends AbstractCommandExecutor {
+    public RemoveGreaterExecutor(CollectionManager collectionManager) {
+        super(collectionManager);
+    }
     @Override
     public ExecutionResult execute(Command command) {
         if(!(command instanceof RemoveGreaterCommand remove))
@@ -19,12 +20,7 @@ public class RemoveGreaterExecutor implements CommandExecutor {
 
         var band = new MusicBand(remove.builder());
 
-        long removed = collection.removeIf(e -> band.compareTo(e) > 0);
+        long removed = getCollection().removeIf(e -> band.compareTo(e) > 0);
         return new RemoveGreaterResult(ExecutionResult.Status.SUCCESS, removed);
-    }
-
-    @Override
-    public void setCollection(CollectionManager collection) {
-        this.collection = collection;
     }
 }

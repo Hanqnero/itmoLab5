@@ -12,10 +12,7 @@ import ru.hanqnero.uni.lab5.commons.exceptions.SubtypeScanError;
 
 import java.io.IOException;
 import java.nio.channels.ClosedChannelException;
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.Optional;
-import java.util.Queue;
+import java.util.*;
 
 public class ClientApplication {
     public static final boolean DEBUG = true;
@@ -37,7 +34,7 @@ public class ClientApplication {
                 new HelpFactory(),
                 "- Display list of commands"
         );
-        handlerRegistry.register(HelpResult.class, new HelpResultHandler(console), "Help");
+        handlerRegistry.register(HelpResult.class, new HelpResultHandler(console, this), "Help");
 
         registry.register(
                 "Exit",
@@ -252,4 +249,9 @@ public class ClientApplication {
         // Need to add all commands from script in right order BEFORE all current commands in queue.
         commands.iterator().forEachRemaining(commandsQueue::push);
     }
+
+    public Collection<CommandRegistry.RegistryEntry> getCommandRegistryEntries() {
+        return registry.getEntries();
+    }
+
 }

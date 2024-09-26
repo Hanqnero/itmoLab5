@@ -1,42 +1,35 @@
 package ru.hanqnero.uni.lab5.client.handlers.concrete;
 
 import org.jetbrains.annotations.NotNull;
+import ru.hanqnero.uni.lab5.client.ClientApplication;
 import ru.hanqnero.uni.lab5.client.ConsoleManager;
 import ru.hanqnero.uni.lab5.client.handlers.AbstractExecutionResultHandler;
-import ru.hanqnero.uni.lab5.client.handlers.ExecutionResultHandler;
-import ru.hanqnero.uni.lab5.commons.util.CommandInfo;
 import ru.hanqnero.uni.lab5.commons.contract.results.ExecutionResult;
 import ru.hanqnero.uni.lab5.commons.contract.results.concrete.HelpResult;
 import ru.hanqnero.uni.lab5.commons.exceptions.WrongHandlerException;
 
 public class HelpResultHandler extends AbstractExecutionResultHandler {
+    private final ClientApplication client;
 
-    public HelpResultHandler(@NotNull ConsoleManager console) {
+    public HelpResultHandler(@NotNull ConsoleManager console, @NotNull ClientApplication client) {
         super(console);
+        this.client = client;
     }
 
     @Override
     public void handleResult(ExecutionResult result) {
-        if (!(result instanceof HelpResult helpResult)) {
+        if (!(result instanceof HelpResult help)) {
             throw new WrongHandlerException(this, result);
         }
-        switch (helpResult.getStatus()) {
-            case ERROR:
-                getConsole().printlnErr("Could not get command list from server");
-                break;
-            case SUCCESS:
-                getConsole().printlnSuc(createHelpMessage(helpResult.getServerCommands()));
-                break;
-            default:
-                assert false;
-        }
+
+        getConsole().println(createHelpMessage());
+
     }
 
-    private String createHelpMessage(CommandInfo[] commands) {
-        StringBuilder result = new StringBuilder("List of commands:\n");
-        for (CommandInfo command : commands) {
-            result.append(command.getName()).append(" ").append(command.getDescription()).append("\n");
-        }
-        return result.toString();
+    private String createHelpMessage() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Available commands:\n");
+        client.getCommandRegistryEntries().forEach(entry -> sb.append(entry.createHelpString()).append("\n"));
+        return sb.toString();
     }
 }

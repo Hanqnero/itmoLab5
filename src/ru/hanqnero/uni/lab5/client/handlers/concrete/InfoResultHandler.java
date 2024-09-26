@@ -25,7 +25,7 @@ public class InfoResultHandler extends AbstractExecutionResultHandler {
                     Information about collection:
                     Creation date: %s
                     Size: %d elements
-                    """.formatted(info.getCreationDate(), info.getSize()));
+                    """.formatted(info.creationDate(), info.size()));
         } else {
             assert false : "NOT REACHABLE";
         }

@@ -5,8 +5,8 @@ import ru.hanqnero.uni.lab5.commons.contract.results.ExecutionResult;
 
 public class WrongHandlerException extends RuntimeException {
     public WrongHandlerException(ExecutionResultHandler handler, ExecutionResult result) {
-        super("Can not handle result of command `%s` with handler `%s`".formatted(
-                result.getCommandName(), handler.getClass()
+        super("Can not handle result of type `%s` with handler `%s`".formatted(
+                result.getClass(), handler.getClass()
         ));
     }
 }
