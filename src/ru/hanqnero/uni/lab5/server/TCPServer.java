@@ -1,8 +1,8 @@
 package ru.hanqnero.uni.lab5.server;
 
-import ru.hanqnero.uni.lab5.contract.commands.Command;
-import ru.hanqnero.uni.lab5.contract.results.ExecutionResult;
-import ru.hanqnero.uni.lab5.util.Serializer;
+import ru.hanqnero.uni.lab5.commons.commands.Command;
+import ru.hanqnero.uni.lab5.commons.results.ExecutionResult;
+import ru.hanqnero.uni.lab5.commons.util.Serializer;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;

@@ -1,15 +1,15 @@
 package ru.hanqnero.uni.lab5.server.executors.concrete;
 
-import ru.hanqnero.uni.lab5.contract.CommandInfo;
-import ru.hanqnero.uni.lab5.contract.commands.Command;
-import ru.hanqnero.uni.lab5.contract.commands.concrete.HelpCommand;
-import ru.hanqnero.uni.lab5.contract.results.concrete.HelpResult;
+import ru.hanqnero.uni.lab5.commons.CommandInfo;
+import ru.hanqnero.uni.lab5.commons.commands.Command;
+import ru.hanqnero.uni.lab5.commons.commands.concrete.HelpCommand;
+import ru.hanqnero.uni.lab5.commons.results.concrete.HelpResult;
 import ru.hanqnero.uni.lab5.server.CollectionManager;
 import ru.hanqnero.uni.lab5.server.ServerApplication;
 import ru.hanqnero.uni.lab5.server.executors.CommandExecutor;
-import ru.hanqnero.uni.lab5.util.exceptions.WrongExecutorForCommandException;
+import ru.hanqnero.uni.lab5.commons.util.exceptions.WrongExecutorForCommandException;
 
-import static ru.hanqnero.uni.lab5.contract.results.ExecutionResult.Status.ERROR;
+import static ru.hanqnero.uni.lab5.commons.results.ExecutionResult.Status.ERROR;
 
 public class HelpExecutor implements CommandExecutor {
 

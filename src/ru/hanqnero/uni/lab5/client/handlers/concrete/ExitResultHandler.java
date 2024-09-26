@@ -2,7 +2,7 @@ package ru.hanqnero.uni.lab5.client.handlers.concrete;
 
 import ru.hanqnero.uni.lab5.client.ClientApplication;
 import ru.hanqnero.uni.lab5.client.ConsoleManager;
-import ru.hanqnero.uni.lab5.contract.results.ExecutionResult;
+import ru.hanqnero.uni.lab5.commons.results.ExecutionResult;
 import ru.hanqnero.uni.lab5.client.handlers.ExecutionResultHandler;
 
 public class ExitResultHandler implements ExecutionResultHandler {

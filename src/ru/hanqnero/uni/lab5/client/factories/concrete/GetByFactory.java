@@ -1,10 +1,10 @@
 package ru.hanqnero.uni.lab5.client.factories.concrete;
 
 import ru.hanqnero.uni.lab5.client.factories.CommandFactory;
-import ru.hanqnero.uni.lab5.contract.commands.Command;
-import ru.hanqnero.uni.lab5.contract.commands.concrete.GetByDate;
-import ru.hanqnero.uni.lab5.util.exceptions.CommandCreationError;
-import ru.hanqnero.uni.lab5.util.exceptions.SubtypeScanError;
+import ru.hanqnero.uni.lab5.commons.commands.Command;
+import ru.hanqnero.uni.lab5.commons.commands.concrete.GetByDate;
+import ru.hanqnero.uni.lab5.commons.util.exceptions.CommandCreationError;
+import ru.hanqnero.uni.lab5.commons.util.exceptions.SubtypeScanError;
 
 public class GetByFactory implements CommandFactory {
     @Override

@@ -1,10 +1,10 @@
 package ru.hanqnero.uni.lab5.server;
 
 import org.jetbrains.annotations.NotNull;
-import ru.hanqnero.uni.lab5.collection.MusicBand;
-import ru.hanqnero.uni.lab5.collection.MusicBandORM;
-import ru.hanqnero.uni.lab5.util.exceptions.DataBaseInitializationError;
-import ru.hanqnero.uni.lab5.util.exceptions.FileEndReachedException;
+import ru.hanqnero.uni.lab5.commons.collection.MusicBand;
+import ru.hanqnero.uni.lab5.commons.collection.MusicBandORM;
+import ru.hanqnero.uni.lab5.commons.util.exceptions.DataBaseInitializationError;
+import ru.hanqnero.uni.lab5.commons.util.exceptions.FileEndReachedException;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;

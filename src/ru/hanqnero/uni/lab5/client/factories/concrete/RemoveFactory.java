@@ -2,13 +2,13 @@ package ru.hanqnero.uni.lab5.client.factories.concrete;
 
 import ru.hanqnero.uni.lab5.client.ConsoleManager;
 import ru.hanqnero.uni.lab5.client.factories.CommandFactory;
-import ru.hanqnero.uni.lab5.collection.Studio;
-import ru.hanqnero.uni.lab5.contract.commands.Command;
-import ru.hanqnero.uni.lab5.contract.commands.concrete.RemoveId;
-import ru.hanqnero.uni.lab5.contract.commands.concrete.RemoveStudio;
-import ru.hanqnero.uni.lab5.util.MusicBandSubTypeScanner;
-import ru.hanqnero.uni.lab5.util.exceptions.CommandCreationError;
-import ru.hanqnero.uni.lab5.util.exceptions.SubtypeScanError;
+import ru.hanqnero.uni.lab5.commons.collection.Studio;
+import ru.hanqnero.uni.lab5.commons.commands.Command;
+import ru.hanqnero.uni.lab5.commons.commands.concrete.RemoveId;
+import ru.hanqnero.uni.lab5.commons.commands.concrete.RemoveStudio;
+import ru.hanqnero.uni.lab5.commons.util.MusicBandSubTypeScanner;
+import ru.hanqnero.uni.lab5.commons.util.exceptions.CommandCreationError;
+import ru.hanqnero.uni.lab5.commons.util.exceptions.SubtypeScanError;
 
 public class RemoveFactory implements CommandFactory {
     private final MusicBandSubTypeScanner scanner = new MusicBandSubTypeScanner();

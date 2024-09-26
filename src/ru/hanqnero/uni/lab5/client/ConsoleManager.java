@@ -1,6 +1,6 @@
 package ru.hanqnero.uni.lab5.client;
 
-import ru.hanqnero.uni.lab5.util.exceptions.ConsoleEmptyException;
+import ru.hanqnero.uni.lab5.commons.util.exceptions.ConsoleEmptyException;
 
 import java.io.InputStream;
 import java.io.OutputStream;

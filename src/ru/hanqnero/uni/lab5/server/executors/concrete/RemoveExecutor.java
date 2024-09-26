@@ -1,14 +1,14 @@
 package ru.hanqnero.uni.lab5.server.executors.concrete;
 
-import ru.hanqnero.uni.lab5.contract.commands.Command;
-import ru.hanqnero.uni.lab5.contract.commands.concrete.RemoveId;
-import ru.hanqnero.uni.lab5.contract.commands.concrete.RemoveStudio;
-import ru.hanqnero.uni.lab5.contract.results.ExecutionResult;
-import ru.hanqnero.uni.lab5.contract.results.concrete.RemoveResult;
-import ru.hanqnero.uni.lab5.contract.results.concrete.UpdateResult;
+import ru.hanqnero.uni.lab5.commons.commands.Command;
+import ru.hanqnero.uni.lab5.commons.commands.concrete.RemoveId;
+import ru.hanqnero.uni.lab5.commons.commands.concrete.RemoveStudio;
+import ru.hanqnero.uni.lab5.commons.results.ExecutionResult;
+import ru.hanqnero.uni.lab5.commons.results.concrete.RemoveResult;
+import ru.hanqnero.uni.lab5.commons.results.concrete.UpdateResult;
 import ru.hanqnero.uni.lab5.server.CollectionManager;
 import ru.hanqnero.uni.lab5.server.executors.CommandExecutor;
-import ru.hanqnero.uni.lab5.util.exceptions.WrongExecutorForCommandException;
+import ru.hanqnero.uni.lab5.commons.util.exceptions.WrongExecutorForCommandException;
 
 public class RemoveExecutor implements CommandExecutor {
     private CollectionManager collection;

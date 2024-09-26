@@ -1,17 +1,13 @@
 package ru.hanqnero.uni.lab5.server;
 
-import ru.hanqnero.uni.lab5.contract.CommandInfo;
-import ru.hanqnero.uni.lab5.contract.commands.Command;
-import ru.hanqnero.uni.lab5.contract.results.ExecutionResult;
+import ru.hanqnero.uni.lab5.commons.CommandInfo;
+import ru.hanqnero.uni.lab5.commons.commands.Command;
+import ru.hanqnero.uni.lab5.commons.results.ExecutionResult;
 import ru.hanqnero.uni.lab5.server.console.ServerCommands;
 import ru.hanqnero.uni.lab5.server.console.ServerConsole;
 import ru.hanqnero.uni.lab5.server.executors.CommandExecutor;
 
 import java.io.*;
-import java.nio.ByteBuffer;
-import java.nio.channels.SelectionKey;
-import java.nio.channels.ServerSocketChannel;
-import java.nio.channels.SocketChannel;
 import java.util.Map;
 import java.util.function.Consumer;
 

@@ -1,8 +1,8 @@
 package ru.hanqnero.uni.lab5.client.factories.concrete;
 
 import ru.hanqnero.uni.lab5.client.ConsoleManager;
-import ru.hanqnero.uni.lab5.contract.commands.Command;
-import ru.hanqnero.uni.lab5.contract.commands.concrete.Exit;
+import ru.hanqnero.uni.lab5.commons.commands.Command;
+import ru.hanqnero.uni.lab5.commons.commands.concrete.Exit;
 import ru.hanqnero.uni.lab5.client.factories.CommandFactory;
 
 public class ExitFactory implements CommandFactory {

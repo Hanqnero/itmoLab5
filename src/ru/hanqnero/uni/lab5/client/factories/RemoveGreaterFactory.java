@@ -1,11 +1,11 @@
 package ru.hanqnero.uni.lab5.client.factories;
 
 import ru.hanqnero.uni.lab5.client.ConsoleManager;
-import ru.hanqnero.uni.lab5.contract.commands.Command;
-import ru.hanqnero.uni.lab5.contract.commands.concrete.RemoveGreater;
-import ru.hanqnero.uni.lab5.util.MusicBandSubTypeScanner;
-import ru.hanqnero.uni.lab5.util.exceptions.CommandCreationError;
-import ru.hanqnero.uni.lab5.util.exceptions.SubtypeScanError;
+import ru.hanqnero.uni.lab5.commons.commands.Command;
+import ru.hanqnero.uni.lab5.commons.commands.concrete.RemoveGreater;
+import ru.hanqnero.uni.lab5.commons.util.MusicBandSubTypeScanner;
+import ru.hanqnero.uni.lab5.commons.util.exceptions.CommandCreationError;
+import ru.hanqnero.uni.lab5.commons.util.exceptions.SubtypeScanError;
 
 public class RemoveGreaterFactory implements CommandFactory{
     MusicBandSubTypeScanner scanner = new MusicBandSubTypeScanner();
