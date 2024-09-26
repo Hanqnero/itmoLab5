@@ -8,6 +8,4 @@ public interface ExecutionResult extends Serializable {
     }
 
     Status getStatus();
-    String getCommandName();
-
 }

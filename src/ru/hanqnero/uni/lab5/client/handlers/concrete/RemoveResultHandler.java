@@ -1,13 +1,16 @@
 package ru.hanqnero.uni.lab5.client.handlers.concrete;
 
 import ru.hanqnero.uni.lab5.client.ConsoleManager;
+import ru.hanqnero.uni.lab5.client.handlers.AbstractExecutionResultHandler;
 import ru.hanqnero.uni.lab5.client.handlers.ExecutionResultHandler;
 import ru.hanqnero.uni.lab5.commons.contract.results.ExecutionResult;
 import ru.hanqnero.uni.lab5.commons.contract.results.concrete.RemoveResult;
 import ru.hanqnero.uni.lab5.commons.exceptions.WrongHandlerException;
 
-public class RemoveResultHandler implements ExecutionResultHandler {
-    private ConsoleManager console;
+public class RemoveResultHandler extends AbstractExecutionResultHandler {
+    public RemoveResultHandler(ConsoleManager console) {
+        super(console);
+    }
     @Override
     public void handleResult(ExecutionResult result) {
         if (!(result instanceof RemoveResult remove))
@@ -15,15 +18,11 @@ public class RemoveResultHandler implements ExecutionResultHandler {
 
 
         if (remove.removed() > 0) {
-            console.printlnSuc(
+            getConsole().printlnSuc(
                     "Removed " + remove.removed() + " element" + (remove.removed() > 1 ? "s":"") + " from collection"
             );
         }
-        console.printlnWarn("No matching elements were found");
+        getConsole().printlnWarn("No matching elements were found");
     }
 
-    @Override
-    public void setConsole(ConsoleManager console) {
-        this.console = console;
-    }
 }

@@ -1,6 +1,7 @@
 package ru.hanqnero.uni.lab5.client.handlers.concrete;
 
 import ru.hanqnero.uni.lab5.client.ConsoleManager;
+import ru.hanqnero.uni.lab5.client.handlers.AbstractExecutionResultHandler;
 import ru.hanqnero.uni.lab5.client.handlers.ExecutionResultHandler;
 import ru.hanqnero.uni.lab5.commons.contract.results.ExecutionResult;
 import ru.hanqnero.uni.lab5.commons.contract.results.concrete.InfoResult;
@@ -8,15 +9,19 @@ import ru.hanqnero.uni.lab5.commons.exceptions.WrongHandlerException;
 
 import java.util.Objects;
 
-public class InfoResultHandler implements ExecutionResultHandler {
-    private ConsoleManager console;
+public class InfoResultHandler extends AbstractExecutionResultHandler {
+
+    public InfoResultHandler(ConsoleManager console) {
+        super(console);
+    }
+
     @Override
     public void handleResult(ExecutionResult result) {
         if (!(result instanceof InfoResult info)) {
             throw new WrongHandlerException(this, result);
         }
         if (Objects.requireNonNull(info.getStatus()) == ExecutionResult.Status.SUCCESS) {
-            console.printlnSuc("""
+            getConsole().printlnSuc("""
                     Information about collection:
                     Creation date: %s
                     Size: %d elements
@@ -24,10 +29,5 @@ public class InfoResultHandler implements ExecutionResultHandler {
         } else {
             assert false : "NOT REACHABLE";
         }
-    }
-
-    @Override
-    public void setConsole(ConsoleManager console) {
-        this.console = console;
     }
 }

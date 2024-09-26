@@ -1,24 +1,28 @@
 package ru.hanqnero.uni.lab5.client;
 
-import ru.hanqnero.uni.lab5.client.factories.concrete.RemoveGreaterFactory;
 import ru.hanqnero.uni.lab5.client.factories.concrete.*;
 import ru.hanqnero.uni.lab5.client.handlers.ExecutionResultHandler;
 import ru.hanqnero.uni.lab5.client.handlers.concrete.*;
 import ru.hanqnero.uni.lab5.commons.contract.commands.Command;
 import ru.hanqnero.uni.lab5.commons.contract.results.ExecutionResult;
+import ru.hanqnero.uni.lab5.commons.contract.results.concrete.*;
 import ru.hanqnero.uni.lab5.commons.exceptions.CommandCreationError;
 import ru.hanqnero.uni.lab5.commons.exceptions.ConsoleEmptyException;
 import ru.hanqnero.uni.lab5.commons.exceptions.SubtypeScanError;
 
 import java.io.IOException;
 import java.nio.channels.ClosedChannelException;
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.Optional;
+import java.util.Queue;
 
 public class ClientApplication {
     public static final boolean DEBUG = true;
     private final ConsoleManager console;
 
     private final CommandRegistry registry = new CommandRegistry();
+    private final HandlerRegistry handlerRegistry = new HandlerRegistry();
 
     private TCPClient tcpClient;
 
@@ -31,93 +35,86 @@ public class ClientApplication {
         registry.register(
                 "Help",
                 new HelpFactory(),
-                new HelpResultHandler(),
                 "- Display list of commands"
         );
+        handlerRegistry.register(HelpResult.class, new HelpResultHandler(console), "Help");
 
         registry.register(
                 "Exit",
                 new ExitFactory(),
-                new ExitResultHandler(),
                 "- Stop client without saving any changes"
         );
+        handlerRegistry.register(ExitResult.class, new ExitResultHandler(this), "Exit");
 
         registry.register(
                 "Info",
                 new InfoFactory(),
-                new InfoResultHandler(),
                 "- Display information about collection"
         );
+        handlerRegistry.register(InfoResult.class, new InfoResultHandler(console), "Info");
 
         registry.register(
                 "Show",
                 new ShowFactory(),
-                new ShowResultHandler(),
                 "- Display list of every collection item"
         );
+        handlerRegistry.register(ShowResult.class, new ShowResultHandler(console), "Show");
 
         registry.register(
                 "Add",
                 new AddFactory(console),
-                new AddResultHandler(),
                 "--[min|max] {Music Band} - Add element to collection"
         );
+        handlerRegistry.register(AddResult.class, new AddResultHandler(console), "Add");
 
         registry.register(
                 "Update",
                 new UpdateFactory(console),
-                new UpdateResultHandler(),
                 "<id> {Music Band} - Update element in collection"
         );
+        handlerRegistry.register(UpdateResult.class, new UpdateResultHandler(console), "Update");
 
         registry.register(
                 "Remove",
                 new RemoveFactory(console),
-                new RemoveResultHandler(),
                 "--[id <id>|--studio {Studio}] - Remove element with matching id from collection"
         );
+        handlerRegistry.register(RemoveResult.class, new RemoveResultHandler(console), "Remove");
 
         registry.register(
                 "Clear",
                 new ClearFactory(),
-                new ClearResultHandler(),
                 "- Remove all items from the collection"
         );
-
-        registry.register(
-                "Clear",
-                new ClearFactory(),
-                new ClearResultHandler(),
-                "- Remove all items from the collection"
-        );
+        handlerRegistry.register(ClearResult.class, new ClearResultHandler(console), "Clear");
 
         registry.register(
                 "Script",
                 new ScriptFactory(console),
-                new ScriptResultHandler(),
                 "<filename> - Execute list of commands from file"
         );
+        handlerRegistry.register(ScriptResult.class, new ScriptResultHandler(console, this), "Script");
 
         registry.register(
                 "Save",
                 new SaveFactory(),
-                new SaveResultHandler(),
                 "- Save collection to text file"
         );
+        handlerRegistry.register(SaveResult.class, new SaveResultHandler(console), "Save");
 
         registry.register(
                 "RemoveGreater",
                 new RemoveGreaterFactory(console),
-                new RemoveGreaterResultHandler(),
                 "{Music Band} - Remove all elements exceeding this from collection"
         );
+        handlerRegistry.register(RemoveGreaterResult.class, new RemoveGreaterResultHandler(console), "RemoveGreater");
 
         registry.register(
                 "Get",
                 new GetFactory(),
-                new GetResultHandler(),
                 "--[min|max] --[creation|establishment]- Display first or last element after chosen sorting"
         );
+        handlerRegistry.register(GetByResult.class, new GetResultHandler(console), "Get");
     }
 
     public void initTCPClient() {
@@ -189,17 +186,17 @@ public class ClientApplication {
 
     public void handleResponse(ExecutionResult response) {
         if (response == null) {
-            console.printlnErr("Cannot handle null execution result");
+            console.printlnErr("Null response received");
             return;
         }
 
-        if (!(handlers.containsKey(response.getCommandName()))) {
-            console.printlnErr("Cannot handle received response for command `%s`".formatted(response.getCommandName()));
+        var entry = handlerRegistry.find(response.getClass());
+        if (entry.isEmpty()) {
+            console.printlnErr("Cannot handle response of type %s".formatted(response.getClass().toString()));
             return;
         }
-        ExecutionResultHandler handler = handlers.get(response.getCommandName());
-        handler.setConsole(console);
-        handler.setClient(this);
+
+        ExecutionResultHandler handler = entry.get().handler();
         handler.handleResult(response);
     }
 

@@ -13,19 +13,16 @@ public class CommandRegistry {
 
     public record RegistryEntry(
                 CommandFactory commandFactory,
-                ExecutionResultHandler resultHandler,
                 String commandDescription
         ) {}
 
     public void register(
             String commandName,
             CommandFactory commandFactory,
-            ExecutionResultHandler resultHandler,
             String commandDescription) {
 
         var entry = new RegistryEntry(
                 commandFactory,
-                resultHandler,
                 commandDescription
         );
         registry.put(commandName, entry);
