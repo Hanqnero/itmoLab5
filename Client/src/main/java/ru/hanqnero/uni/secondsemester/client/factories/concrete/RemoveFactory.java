@@ -1,0 +1,45 @@
+package ru.hanqnero.uni.secondsemester.client.factories.concrete;
+
+import ru.hanqnero.uni.secondsemester.client.ConsoleManager;
+import ru.hanqnero.uni.secondsemester.client.MusicBandSubTypeScanner;
+import ru.hanqnero.uni.secondsemester.client.factories.AbstractFactory;
+import ru.hanqnero.uni.secondsemester.commons.collection.Studio;
+import ru.hanqnero.uni.secondsemester.commons.contract.commands.Command;
+import ru.hanqnero.uni.secondsemester.commons.contract.commands.concrete.RemoveCommand;
+import ru.hanqnero.uni.secondsemester.commons.contract.commands.concrete.RemoveStudio;
+import ru.hanqnero.uni.secondsemester.client.exceptions.CommandCreationError;
+import ru.hanqnero.uni.secondsemester.client.exceptions.SubtypeScanError;
+
+public class RemoveFactory extends AbstractFactory {
+    private final MusicBandSubTypeScanner scanner;
+
+    public RemoveFactory(ConsoleManager console) {
+        scanner = new MusicBandSubTypeScanner(console);
+    }
+
+    @Override
+    public Command createCommand(String[] tokens) throws SubtypeScanError, CommandCreationError {
+        if (tokens.length == 1)
+            throw new CommandCreationError("Not enough arguments");
+
+        if (tokens[1].equalsIgnoreCase("--id")) {
+            long id;
+            try {
+                id = Long.parseLong(tokens[2]);
+            } catch (NumberFormatException e) {
+                throw new CommandCreationError("Could not parse id long");
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new CommandCreationError("Not enough arguments");
+            }
+
+            return new RemoveCommand(id);
+        }
+
+        if (tokens[1].equalsIgnoreCase("--studio")) {
+            Studio s = scanner.scanStudio();
+            return new RemoveStudio(s);
+        }
+
+        throw new CommandCreationError("Wrong command format");
+    }
+}
