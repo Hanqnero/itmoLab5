@@ -1,96 +1,269 @@
-# 2-й семестр (весна)
-## Лабораторная работа #5
-Вариант 2554 сгенерирован 2024.02.16:17:45
+# Music Band Collection Management System
 
-Реализовать консольное приложение, которое реализует управление коллекцией объектов в интерактивном режиме. В коллекции необходимо хранить объекты класса MusicBand, описание которого приведено ниже.
+A Java-based client-server application for managing music band collections with support for both CSV and PostgreSQL persistence.
 
-Разработанная программа должна удовлетворять следующим требованиям:
+## Features
 
-1. Класс, коллекцией экземпляров которого управляет программа, должен реализовывать сортировку по умолчанию.
-Все требования к полям класса (указанные в виде комментариев) должны быть выполнены.
-Для хранения необходимо использовать коллекцию типа `java.util.TreeSet`
-При запуске приложения коллекция должна автоматически заполняться значениями из файла.
-Имя файла должно передаваться программе с помощью: переменная окружения.
-Данные должны храниться в файле в формате csv
-Чтение данных из файла необходимо реализовать с помощью класса `java.io.InputStreamReader`
-Запись данных в файл необходимо реализовать с помощью класса `java.io.FileOutputStream`
-Все классы в программе должны быть задокументированы в формате javadoc.
-Программа должна корректно работать с неправильными данными (ошибки пользовательского ввода, отсутствие прав доступа к файлу и т.п.).
+### Core Functionality
+- **Music Band Management**: Add, update, delete, and query music bands
+- **Collection Operations**: Sort, filter, and analyze band collections
+- **TCP Client-Server Architecture**: Networked communication between client and server
+- **Command-Line Interface**: Interactive console for collection management
 
-В интерактивном режиме программа должна поддерживать выполнение следующих команд:
+### Persistence Options
+- **Hybrid Persistence**: Support for CSV files, PostgreSQL database, or both
+- **Multiple Storage Modes**: Choose between CSV-only, PostgreSQL-only, synchronized, or backup modes
+- **Data Migration**: Automatic migration from CSV to PostgreSQL
+- **Fallback Support**: Graceful degradation if database is unavailable
 
-1. -[x] `help` : вывести справку по доступным командам
-2. -[x] `info` : вывести в стандартный поток вывода информацию о коллекции (тип, дата инициализации, количество элементов и т.д.)
-3. -[x] `show` : вывести в стандартный поток вывода все элементы коллекции в строковом представлении
-4. -[x] `add {element}` : добавить новый элемент в коллекцию
-5. -[x] `update id {element}` : обновить значение элемента коллекции, id которого равен заданному
-6. -[x] `remove_by_id id` : удалить элемент из коллекции по его id
-7. -[x] `clear` : очистить коллекцию
-8. -[x] `save` : сохранить коллекцию в файл
-9. -[x] `execute_script file_name` : считать и исполнить скрипт из указанного файла. В скрипте содержатся команды в таком же виде, в котором их вводит пользователь в интерактивном режиме.
-10. -[x] `exit` : завершить программу (без сохранения в файл)
-11. -[x] `add_if_max {element}` : добавить новый элемент в коллекцию, если его значение превышает значение наибольшего элемента этой коллекции
-12. -[x] `add_if_min {element}` : добавить новый элемент в коллекцию, если его значение меньше, чем у наименьшего элемента этой коллекции
-13. -[x] `remove_greater {element}` : удалить из коллекции все элементы, превышающие заданный
-14. -[x] `remove_all_by_studio studio` : удалить из коллекции все элементы, значение поля studio которого эквивалентно заданному
-15. -[ ] `min_by_creation_date` : вывести любой объект из коллекции, значение поля creationDate которого является минимальным
-16. -[ ] `max_by_establishment_date` : вывести любой объект из коллекции, значение поля establishmentDate которого является максимальным
+### Database Features
+- **PostgreSQL Integration**: Full CRUD operations with PostgreSQL database
+- **Connection Pooling**: HikariCP for efficient database connections
+- **Schema Management**: Automatic database schema creation and validation
+- **Transaction Support**: ACID compliance for data consistency
+- **Performance Optimization**: Indexes and batch operations
 
-Формат ввода команд:
+## Quick Start
 
-1. Все аргументы команды, являющиеся стандартными типами данных (примитивные типы, классы-оболочки, String, классы для хранения дат), должны вводиться в той же строке, что и имя команды.
-2. Все составные типы данных (объекты классов, хранящиеся в коллекции) должны вводиться по одному полю в строку.
-3. При вводе составных типов данных пользователю должно показываться приглашение к вводу, содержащее имя поля (например, "Введите дату рождения:")
-4. Если поле является enum'ом, то вводится имя одной из его констант (при этом список констант должен быть предварительно выведен).
-5. При некорректном пользовательском вводе (введена строка, не являющаяся именем константы в enum'е; введена строка вместо числа; введённое число не входит в указанные границы и т.п.) должно быть показано сообщение об ошибке и предложено повторить ввод поля.
-6. Для ввода значений null использовать пустую строку.
-7. Поля с комментарием "Значение этого поля должно генерироваться автоматически" не должны вводиться пользователем вручную при добавлении.
+### Prerequisites
+- Java 11 or higher
+- PostgreSQL 12+ (optional, for database persistence)
+- Maven 3.6+ (for building)
 
-Описание хранимых в коллекции классов:
+### Environment Setup
 
-```java
-public class MusicBand {
-    private Long id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
-    private String name; //Поле не может быть null, Строка не может быть пустой
-    private Coordinates coordinates; //Поле не может быть null
-    private java.time.LocalDateTime creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
-    private Long numberOfParticipants; //Поле не может быть null, Значение поля должно быть больше 0
-    private int singlesCount; //Значение поля должно быть больше 0
-    private java.time.ZonedDateTime establishmentDate; //Поле не может быть null
-    private MusicGenre genre; //Поле может быть null
-    private Studio studio; //Поле может быть null
-}
-public class Coordinates {
-    private long x;
-    private Integer y; //Поле не может быть null
-}
-public class Studio {
-    private String name; //Поле может быть null
-    private String address; //Поле может быть null
-}
-public enum MusicGenre {
-    PROGRESSIVE_ROCK,
-    PSYCHEDELIC_ROCK,
-    POST_ROCK,
-    PUNK_ROCK
-}
+1. **Choose your persistence mode:**
+   ```bash
+   # For development with database + CSV backup
+   source setup-environment.sh development
+   
+   # For production with PostgreSQL only
+   source setup-environment.sh production
+   
+   # For traditional CSV-only mode
+   source setup-environment.sh csv-only
+   ```
+
+2. **Set up PostgreSQL (if using database modes):**
+   ```sql
+   -- Create database and user
+   CREATE DATABASE musicband_db;
+   CREATE USER musicband_user WITH PASSWORD 'your_password';
+   GRANT ALL PRIVILEGES ON DATABASE musicband_db TO musicband_user;
+   ```
+
+3. **Configure environment variables:**
+   ```bash
+   export DB_URL="jdbc:postgresql://localhost:5432/musicband_db"
+   export DB_USERNAME="musicband_user"
+   export DB_PASSWORD="your_password"
+   export MUSIC_BANDS_FILE="./data/music_bands.csv"
+   export PERSISTENCE_MODE="POSTGRES_WITH_CSV_BACKUP"
+   ```
+
+### Running the Application
+
+1. **Build the project:**
+   ```bash
+   mvn clean package
+   ```
+
+2. **Start the server:**
+   ```bash
+   java -jar server/target/server.jar
+   ```
+
+3. **Start the client:**
+   ```bash
+   java -jar client/target/client.jar
+   ```
+
+## Persistence Modes
+
+### Available Modes
+
+| Mode | Description | Use Case |
+|------|-------------|----------|
+| `CSV_ONLY` | Traditional CSV file storage | Legacy systems, simple deployments |
+| `POSTGRES_ONLY` | PostgreSQL database only | Production environments |
+| `BOTH` | Synchronize CSV and PostgreSQL | Development, testing |
+| `POSTGRES_WITH_CSV_BACKUP` | PostgreSQL primary, CSV backup | Recommended for most use cases |
+
+### Configuration
+
+Set the `PERSISTENCE_MODE` environment variable to your desired mode:
+
+```bash
+export PERSISTENCE_MODE="POSTGRES_WITH_CSV_BACKUP"
 ```
 
-Отчёт по работе должен содержать:
+## Database Schema
 
-1. Текст задания.
-2. Диаграмма классов разработанной программы.
-3. Исходный код программы.
-4. Выводы по работе.
+### Tables
 
-Вопросы к защите лабораторной работы:
+**music_bands**
+- `id` (BIGINT, PRIMARY KEY) - Unique band identifier
+- `creation_date` (TIMESTAMP) - Record creation timestamp
+- `name` (VARCHAR(255)) - Band name
+- `coordinate_x` (REAL) - X coordinate
+- `coordinate_y` (BIGINT) - Y coordinate  
+- `number_of_participants` (BIGINT) - Number of band members
+- `singles_count` (INTEGER) - Number of singles released
+- `establishment_date` (DATE) - Band establishment date
+- `genre` (VARCHAR(50)) - Music genre (enum)
+- `studio_id` (INTEGER) - Foreign key to studios table
 
-1. Коллекции. Сортировка элементов коллекции. Интерфейсы `java.util.Comparable` и `java.util.Comparator`.
-2. Категории коллекций - списки, множества. Интерфейс `java.util.Map` и его реализации.
-3. Параметризованные типы. Создание параметризуемых классов. Wildcard-параметры.
-4. Классы-оболочки. Назначение, область применения, преимущества и недостатки. Автоупаковка и автораспаковка.
-5. Потоки ввода-вывода в Java. Байтовые и символьные потоки. "Цепочки" потоков (Stream Chains).
-6. Работа с файлами в Java. Класс `java.io.File`.
-7. Пакет `java.nio` - назначение, основные классы и интерфейсы.
-8. Утилита javadoc. Особенности автоматического документирования кода в Java.
+**studios**
+- `id` (SERIAL, PRIMARY KEY) - Studio identifier
+- `name` (VARCHAR(255)) - Studio name
 
+### Constraints and Indexes
+
+- Primary keys and foreign key relationships
+- Check constraints for positive values
+- Indexes on frequently queried columns (name, creation_date, genre)
+- Unique constraints where appropriate
+
+## Architecture
+
+### Core Components
+
+- **CollectionManager**: Central collection management with hybrid persistence
+- **HybridPersistenceManager**: Unified persistence layer supporting multiple backends
+- **PostgreSQLMusicBandORM**: Database operations and queries  
+- **DatabaseConfig**: Connection management and configuration
+- **CSVManager**: File-based persistence (legacy support)
+
+### Database Infrastructure
+
+- **Connection Pooling**: HikariCP for efficient connection management
+- **Transaction Management**: Automatic transaction handling
+- **Schema Management**: Automatic table creation and validation
+- **Migration Support**: Tools for data migration between storage types
+
+## API Reference
+
+### Environment Variables
+
+| Variable | Required | Description | Example |
+|----------|----------|-------------|---------|
+| `DB_URL` | For DB modes | PostgreSQL connection URL | `jdbc:postgresql://localhost:5432/musicband_db` |
+| `DB_USERNAME` | For DB modes | Database username | `musicband_user` |
+| `DB_PASSWORD` | For DB modes | Database password | `secure_password` |
+| `MUSIC_BANDS_FILE` | Always | CSV file path | `./data/music_bands.csv` |
+| `PERSISTENCE_MODE` | Optional | Storage mode | `POSTGRES_WITH_CSV_BACKUP` |
+
+### Command Examples
+
+```bash
+# Development setup
+export DB_URL="jdbc:postgresql://localhost:5432/musicband_dev"
+export DB_USERNAME="dev_user"
+export DB_PASSWORD="dev_pass"
+export MUSIC_BANDS_FILE="./data/bands.csv"
+export PERSISTENCE_MODE="POSTGRES_WITH_CSV_BACKUP"
+
+# Production setup  
+export PERSISTENCE_MODE="POSTGRES_ONLY"
+export DB_URL="jdbc:postgresql://prod-server:5432/musicband_prod"
+# ... other production settings
+```
+
+## Performance Considerations
+
+### Database Optimization
+- Connection pooling (max 10 connections)
+- Batch operations for bulk inserts/updates
+- Proper indexing on query columns
+- Transaction optimization
+
+### Memory Management
+- TreeSet for automatic sorting
+- Lazy loading for large datasets
+- Connection cleanup and resource management
+
+## Error Handling
+
+### Automatic Fallbacks
+- Database unavailable → Falls back to CSV mode
+- Invalid data → Logs error and continues
+- Connection timeout → Automatic retry with exponential backoff
+
+### Monitoring
+- Connection health checks
+- Query performance logging  
+- Error tracking and reporting
+
+## Migration Guide
+
+### From CSV to PostgreSQL
+
+1. **Set up PostgreSQL database**
+2. **Configure environment variables**
+3. **Set mode to `BOTH` for initial sync:**
+   ```bash
+   export PERSISTENCE_MODE="BOTH"
+   ```
+4. **Start application** - Data will be automatically migrated
+5. **Switch to `POSTGRES_ONLY` mode** once migration is verified
+
+### Backup and Recovery
+
+- **CSV Backup**: Automatic in `POSTGRES_WITH_CSV_BACKUP` mode
+- **Database Backup**: Use standard PostgreSQL backup tools
+- **Point-in-time Recovery**: Supported via PostgreSQL PITR
+
+## Troubleshooting
+
+### Common Issues
+
+**Connection refused:**
+- Check PostgreSQL is running
+- Verify host/port in DB_URL
+- Check firewall settings
+
+**Authentication failed:**
+- Verify username/password
+- Check PostgreSQL authentication config
+
+**Schema errors:**
+- Ensure user has CREATE privileges
+- Check for existing tables with different schema
+
+For detailed troubleshooting, see [DATABASE_SETUP.md](DATABASE_SETUP.md).
+
+## Development
+
+### Building
+```bash
+mvn clean compile test package
+```
+
+### Testing
+```bash
+# Unit tests
+mvn test
+
+# Integration tests with database
+mvn verify -P integration-test
+```
+
+### Code Structure
+```
+server/src/main/java/ru/hanqnero/uni/lab5/server/
+├── CollectionManager.java           # Main collection management
+├── database/
+│   ├── DatabaseConfig.java          # Connection configuration  
+│   ├── DatabaseSchemaManager.java   # Schema management
+│   ├── HybridPersistenceManager.java # Unified persistence
+│   └── PostgreSQLMusicBandORM.java  # Database operations
+└── CSVManager.java                   # Legacy CSV support
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Add tests for new functionality  
+4. Ensure all tests pass
+5. Submit a pull request
